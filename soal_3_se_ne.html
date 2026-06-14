@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tes 3: SE vs JKT (Uji Kompetensi Teknis)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="assets/theme.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="assets/app.js"></script>
+</head>
+<body class="p-4 md:p-8">
+  <div id="navbar-placeholder"></div>
+  <main class="max-w-3xl mx-auto mt-6">
+    <div class="cyber-card p-4 mb-6 text-center">
+      <h2 class="text-xl font-bold text-cyan-400">TES KEMAMPUAN TEKNIS OBJEKTIF</h2>
+      <p class="text-xs text-gray-400">Setiap jawaban benar berbobot poin penuh sesuai kunci validasi sistem backend.</p>
+    </div>
+
+    <form id="form-tes-3" onsubmit="prosesTes3(event)" class="space-y-6">
+      <div class="p-2 text-xs font-bold font-mono tracking-widest text-blue-400 uppercase">Bagian A — Kompetensi Software Engineering</div>
+      <div id="container-se-tech" class="space-y-6"></div>
+
+      <div class="p-2 text-xs font-bold font-mono tracking-widest text-cyan-400 uppercase mt-8">Bagian B — Kompetensi Jaringan Komputer</div>
+      <div id="container-jkt-tech" class="space-y-6"></div>
+
+      <div class="p-2 text-xs font-bold font-mono tracking-widest text-purple-400 uppercase mt-8">Bagian C — Studi Kasus Praktik Isian Singkat</div>
+      <div class="cyber-card p-5">
+        <p class="font-medium mb-2">25. (SE) Tuliskan pseudocode/logika sederhana untuk menentukan apakah suatu angka input berstatus GENAP atau GANJIL!</p>
+        <input type="text" name="q25" required class="w-full bg-black/30 border border-gray-700 rounded-lg p-3 text-white font-mono focus:outline-none focus:border-purple-500 transition">
+      </div>
+      <div class="cyber-card p-5">
+        <p class="font-medium mb-2">26. (JKT) Diberikan IP Network 192.168.10.0/24. Tuliskan Subnet Mask Default, Host Pertama Valid, dan Alamat IP Broadcast-nya!</p>
+        <input type="text" name="q26" required class="w-full bg-black/30 border border-gray-700 rounded-lg p-3 text-white font-mono focus:outline-none focus:border-purple-500 transition">
+      </div>
+
+      <button type="submit" class="w-full py-4 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-bold rounded-xl shadow-lg transition tracking-wide uppercase text-sm">Selesai & Hitung Keunggulan Teknis</button>
+    </form>
+  </main>
+  <div id="footer-placeholder" class="mt-12"></div>
+  <script src="assets/components.js"></script>
+  <script>
+    lucide.createIcons();
+    const activeSiswa = JSON.parse(sessionStorage.getItem('active_siswa'));
+    if(!activeSiswa) window.location.href = 'identitas_siswa.html';
+
+    const kunciJawaban = {
+      1:'B', 2:'B', 3:'C', 4:'A', 5:'B', 6:'B', 7:'C', 8:'B', 9:'B', 10:'A', 11:'A', 12:'B',
+      13:'C', 14:'B', 15:'C', 16:'A', 17:'A', 18:'B', 19:'C', 20:'A', 21:'A', 22:'B', 23:'C', 24:'B'
+    };
+
+    const soalSE = [
+      { n: 1, p: "Berapakah hasil operasi aritmatika 7 % 3 dalam pemrograman?", a: "2", b: "1", c: "3", d: "0" },
+      { n: 2, p: "Struktur kendali kontrol apa yang digunakan untuk mengulang perintah selama kondisi terpenuhi?", a: "Variabel", b: "Loop / Perulangan", c: "Fungsi / Prosedur", d: "Konstanta" },
+      { n: 3, p: "Tipe data yang hanya menyimpan nilai TRUE atau FALSE adalah?", a: "Integer", b: "String", c: "Boolean", d: "Float" },
+      { n: 4, p: "Jika x = 5; y = 2; berapakah nilai dari operasi: print(x * y + 3)?", a: "13", b: "16", c: "25", d: "10" },
+      { n: 5, p: "Apa kegunaan utama dari pembuatan sebuah Fungsi (Function) dalam kode program?", a: "Menyimpan data secara permanen", b: "Mengelompokkan blok kode agar bisa digunakan berulang kali", c: "Menghubungkan komputer ke internet", d: "Mengatur kecerahan layar monitor" },
+      { n: 6, p: "Bahasa standar yang digunakan untuk mengatur kerangka tampilan dan gaya estetika halaman web adalah?", a: "Python", b: "HTML & CSS", c: "SQL", d: "C++" },
+      { n: 7, p: "Perintah SQL manakah yang valid digunakan untuk mengekstrak/mengambil data dari tabel?", a: "INSERT", b: "DELETE", c: "SELECT", d: "UPDATE" },
+      { n: 8, p: "Jika data = [10, 20, 30, 40], berapakah nilai dari elemen indeks array data[1]?", a: "10", b: "20", c: "30", d: "40" },
+      { n: 9, p: "Proses melacak, menemukan, dan memperbaiki eror/bug pada penulisan sintaks program disebut?", a: "Compiling", b: "Debugging", c: "Deploying", d: "Encoding" },
+      { n: 10, p: "Kondisi logika: if (nilai >= 75). Apa outputnya jika variabel nilai diisi angka 75?", a: "Kondisi Terpenuhi (Lulus)", b: "Kondisi Tidak Terpenuhi", c: "Syntax Error", d: "Undefined Output" },
+      { n: 11, p: "Tools/perangkat lunak yang populer digunakan sebagai Version Control System (VCS) kolaborasi tim adalah?", a: "Git", b: "Microsoft Excel", c: "Adobe Photoshop", d: "Wireshark" },
+      { n: 12, p: "Apakah fungsi utama dari Application Programming Interface (API)?", a: "Mengamankan pembungkus kabel fisik UTP", b: "Menghubungkan dan menjembatani komunikasi data antar-aplikasi terpisah", c: "Mendesain mockup antarmuka grafis", d: "Mengatur kecepatan bandwidth internet" }
+    ];
+
+    const containerSE = document.getElementById('container-se-tech');
+    soalSE.forEach(s => {
+      containerSE.innerHTML += `
+        <div class="cyber-card p-5">
+          <p class="font-medium mb-3">${s.n}. ${s.p}</p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+            <label class="flex items-center gap-2 p-2 rounded bg-black/20 hover:bg-black/40 cursor-pointer"><input type="radio" name="q${s.n}" value="A" required> <span>A. ${s.a}</span></label>
+            <label class="flex items-center gap-2 p-2 rounded bg-black/20 hover:bg-black/40 cursor-pointer"><input type="radio" name="q${s.n}" value="B"> <span>B. ${s.b}</span></label>
+            <label class="flex items-center gap-2 p-2 rounded bg-black/20 hover:bg-black/40 cursor-pointer"><input type="radio" name="q${s.n}" value="C"> <span>C. ${s.c}</span></label>
+            <label class="flex items-center gap-2 p-2 rounded bg-black/20 hover:bg-black/40 cursor-pointer"><input type="radio" name="q${s.n}" value="D"> <span>D. ${s.d}</span></label>
+          </div>
+        </div>`;
+    });
+
+    const soalJKT = [
+      { n: 13, p: "Alamat IP 192.168.1.10 termasuk ke dalam kategori alokasi kelas IPv4 apa?", a: "Kelas A", b: "Kelas B", c: "Kelas C", d: "Kelas D" },
+      { n: 14, p: "Perangkat keras jaringan yang berfungsi menghubungkan dua segment jaringan berbeda dan menentukan jalur paket data terbaik adalah?", a: "Switch Managed", b: "Router", c: "Hub", d: "Passive Repeater" },
+      { n: 15, p: "Berapakah nilai Subnet Mask default untuk konfigurasi alamat IP Kelas C?", a: "255.0.0.0", b: "255.255.0.0", c: "255.255.255.0", d: "255.255.255.255" },
+      { n: 16, p: "Perintah CLI utilitas dasar manakah yang digunakan untuk menguji konektivitas end-to-end antar-host?", a: "ping", b: "print", c: "copy run start", d: "format" },
+      { n: 17, p: "Berdasarkan standar urutan pengkabelan internasional T568B, susunan dua warna pertama dimulai dari kiri adalah?", a: "Putih-Orange, Orange", b: "Putih-Hijau, Hijau", c: "Orange, Putih-Orange", d: "Biru, Putih-Biru" },
+      { n: 18, p: "Protokol jaringan layanan yang bertugas memberikan alokasi IP Address secara otomatis kepada client adalah?", a: "DNS Server", b: "DHCP Server", c: "FTP Server", d: "SMTP Engine" },
+      { n: 19, p: "Pada pemetaan model referensi 7-OSI Layer, pengelolaan pengalamatan logika (IP) dan routing dikerjakan pada layer?", a: "Physical Layer", b: "Data Link Layer", c: "Network Layer", d: "Application Layer" },
+      { n: 20, p: "Apakah peranan utama dari Domain Name System (DNS) dalam interkoneksi internet?", a: "Menerjemahkan nama domain url menjadi alamat IP logika", b: "Mengamankan OS dari serangan virus lokal", c: "Membagi alokasi bandwidth secara merata", d: "Menyimpan file cadangan hosting" },
+      { n: 21, p: "Berapakah jumlah host valid / dapat digunakan pada blok segmen subnet prefix mask /24?", a: "254 Host", b: "256 Host", c: "128 Host", d: "64 Host" },
+      { n: 22, p: "Sistem keamanan yang bertindak menyaring, memantau, dan mengontrol trafik data masuk keluar jaringan berdasarkan rule hukum ketat adalah?", a: "Hub System", b: "Firewall", c: "Modem ADSL", d: "Access Point" },
+      { n: 23, p: "Media transmisi fisik berupa kabel kabel yang mengirimkan data pulsa cahaya kecepatan tinggi dan kebal interferensi elektromagnetik adalah?", a: "Coaxial Cable", b: "Kabel UTP Cat6e", c: "Serat Optik (Fiber Optic)", d: "Kabel Tembaga Telepon" },
+      { n: 24, p: "Sistem operasi tangguh yang umum dan standar digunakan sebagai server infrastruktur jaringan enterprise adalah?", a: "Windows 11 Home Edition", b: "Linux Debian / Ubuntu Server", c: "Android Enterprise Marshmallow", d: "Apple iOS Base" }
+    ];
+
+    const containerJKT = document.getElementById('container-jkt-tech');
+    soalJKT.forEach(s => {
+      containerJKT.innerHTML += `
+        <div class="cyber-card p-5">
+          <p class="font-medium mb-3">${s.n}. ${s.p}</p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+            <label class="flex items-center gap-2 p-2 rounded bg-black/20 hover:bg-black/40 cursor-pointer"><input type="radio" name="q${s.n}" value="A" required> <span>A. ${s.a}</span></label>
+            <label class="flex items-center gap-2 p-2 rounded bg-black/20 hover:bg-black/40 cursor-pointer"><input type="radio" name="q${s.n}" value="B"> <span>B. ${s.b}</span></label>
+            <label class="flex items-center gap-2 p-2 rounded bg-black/20 hover:bg-black/40 cursor-pointer"><input type="radio" name="q${s.n}" value="C"> <span>C. ${s.c}</span></label>
+            <label class="flex items-center gap-2 p-2 rounded bg-black/20 hover:bg-black/40 cursor-pointer"><input type="radio" name="q${s.n}" value="D"> <span>D. ${s.d}</span></label>
+          </div>
+        </div>`;
+    });
+
+    async function prosesTes3(e) {
+      e.preventDefault();
+      const fd = new FormData(e.target);
+      let scoreSE = 0;
+      let scoreNE = 0;
+
+      // Evaluasi Otomatis via Key Map
+      for(let i=1; i<=12; i++) { if(fd.get(`q${i}`) === kunciJawaban[i]) scoreSE++; }
+      for(let i=13; i<=24; i++) { if(fd.get(`q${i}`) === kunciJawaban[i]) scoreNE++; }
+
+      const pid = await AppCore.initiateTestSession(activeSiswa.id, 'SE vs JKT');
+      if(pid) {
+         const bulkData = [];
+         for(let i=1; i<=26; i++) {
+           const ans = fd.get(`q${i}`);
+           const isCorrect = i <= 24 ? (ans === kunciJawaban[i]) : null;
+           bulkData.push({
+             nomorSoal: i,
+             tipeSoal: i <= 24 ? 'PG' : 'Praktik',
+             jawabanSiswa: ans,
+             poinSE: (i <= 12 && isCorrect) ? 1 : 0,
+             poinJKT: (i >= 13 && i <= 24 && isCorrect) ? 1 : 0
+           });
+         }
+         await AppCore.submitAnswersBulk(pid, bulkData);
+         await AppCore.finalizeTestScore(pid, scoreSE * 8, scoreNE * 8); // Skala Maks 100 approx
+         window.location.href = `hasil.html?pengerjaan_id=${pid}`;
+      }
+    }
+  </script>
+</body>
+</html>

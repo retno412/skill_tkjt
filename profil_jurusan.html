@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minat Masa Depan - Profil Kompetensi SE & NE | SMK AMI Deltamas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+        .cyber-card {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(8px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .cyber-card:hover {
+            transform: translateY(-4px);
+            background: rgba(30, 41, 59, 0.8);
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between">
+
+    <!-- NAVBAR HEADER NAVIGATION -->
+    <header class="border-b border-slate-800 bg-slate-900/50 backdrop-blur sticky top-0 z-40 px-4 py-4">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="p-2 bg-gradient-to-br from-blue-500 to-cyan-500 text-white rounded-xl shadow-md">
+                    <i class="fa-solid fa-network-wired text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-sm md:text-base tracking-tight text-white">EKSPLORASI MINAT MASA DEPAN v4.0</h1>
+                    <p class="text-xs text-slate-400 font-mono">Klaster Komparatif Ranah Kerja Kompetensi Keahlian</p>
+                </div>
+            </div>
+            <div>
+                <a href="index.html" class="px-4 py-2 bg-slate-900 border border-slate-800 hover:border-slate-700 text-slate-300 hover:text-white rounded-xl text-xs font-mono transition-all flex items-center gap-2">
+                    <i class="fa-solid fa-arrow-left"></i> Hub Utama
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN GRID CONTAINER -->
+    <main class="max-w-7xl mx-auto px-4 py-8 flex-grow w-full">
+        
+        <!-- INTRO HERO BANNER -->
+        <div class="text-center max-w-3xl mx-auto mb-12">
+            <span class="px-3 py-1 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 text-cyan-400 border border-cyan-500/20 rounded-full text-[11px] font-mono font-bold tracking-wider uppercase">Matriks Karier Industri 4.0 Terintegrasi</span>
+            <h2 class="text-2xl md:text-4xl font-extrabold text-white tracking-tight mt-3">Dua Pilar Keunggulan Teknologi</h2>
+            <p class="text-xs md:text-sm text-slate-400 mt-2 leading-relaxed">
+                Klik pada setiap posisi profesi produktif di bawah ini untuk membuka detail tugas harian, perkiraan gaji, alat kerja, serta maksud dan tujuan mendalam yang membagi kedua spesialisasi jurusan ini[cite: 2].
+            </p>
+        </div>
+
+        <!-- TWO COLUMN GRID LAYOUT (8 SE vs 8 NE) -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+            
+            <!-- COLUMN A: SOFTWARE ENGINEERING (SE) -->
+            <div class="border border-blue-900/40 bg-blue-950/5 rounded-3xl p-6 md:p-8 shadow-2xl relative flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center gap-3 mb-6 border-b border-blue-900/30 pb-4">
+                        <div class="p-3 bg-blue-500/10 rounded-xl text-blue-400 border border-blue-500/20"><i class="fa-solid fa-code text-2xl"></i></div>
+                        <div>
+                            <h3 class="text-xl font-extrabold text-white tracking-tight">Software Engineering (SE)</h3>
+                            <p class="text-[11px] text-blue-400 font-mono">Fokus: Code, Data Logic, & Platform Dev</p>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <!-- SE 1 -->
+                        <div onclick="bukaPopupKarier('se-frontend')" class="cyber-card p-4 border border-slate-800 rounded-2xl cursor-pointer hover:border-blue-500/50 group flex justify-between items-center">
+                            <div class="space-y-1">
+                                <strong class="text-slate-200 block text-sm group-hover:text-blue-400 transition-colors">💻 Front-End Web Developer</strong>
+                                <p class="text-xs text-slate-400 leading-relaxed">Fokus membangun arsitektur tampilan web yang interaktif, animasi responsif, dan memastikan kenyamanan navigasi pengguna di browser.</p>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-xs text-slate-600 group-hover:text-blue-400 transform group-hover:translate-x-1 transition-all pl-2"></i>
+                        </div>
+
+                        <!-- SE 2 -->
+                        <div onclick="bukaPopupKarier('se-backend')" class="cyber-card p-4 border border-slate-800 rounded-2xl cursor-pointer hover:border-blue-500/50 group flex justify-between items-center">
+                            <div class="space-y-1">
+                                <strong class="text-slate-200 block text-sm group-hover:text-blue-400 transition-colors">⚙️ Back-End & API Engineer</strong>
+                                <p class="text-xs text-slate-400 leading-relaxed">Membangun arsitektur logika di balik layar, mengolah otentikasi akun, sirkulasi sistem keamanan, dan mengelola alur komunikasi data.</p>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-xs text-slate-600 group-hover:text-blue-400 transform group-hover:translate-x-1 transition-all pl-2"></i>
+                        </div>
+
+                        <!-- SE 3 -->
+                        <div onclick="bukaPopupKarier('se-mobile')" class="cyber-card p-4 border border-slate-800 rounded-2xl cursor-pointer hover:border-blue-500/50 group flex justify-between items-center">
+                            <div class="space-y-1">
+                                <strong class="text-slate-200 block text-sm group-hover:text-blue-400 transition-colors">📱 Mobile Application Developer</strong>
+                                <p class="text-xs text-slate-400 leading-relaxed">Mengembangkan aplikasi native atau cross-platform khusus perangkat smartphone Android dan iOS agar berjalan mulus tanpa lag.</p>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-xs text-slate-600 group-hover:text-blue-400 transform group-hover:translate-x-1 transition-all pl-2"></i>
+                        </div>
+
+                        <!-- SE 4 -->
+                        <div onclick="bukaPopupKarier('se-db')" class="cyber-card p-4 border border-slate-800 rounded-2xl cursor-pointer hover:border-blue-500/50 group flex justify-between items-center">
+                            <div class="space-y-1">
+                                <strong class="text-slate-200 block text-sm group-hover:text-blue-400 transition-colors">🗄️ Database Architect & Administrator</strong>
+                                <p class="text-xs text-slate-400 leading-relaxed">Merancang skema penyimpanan data (ERD), normalisasi tabel, dan mengoptimalkan kecepatan pembacaan query basis data skala besar.</p>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-xs text-slate-600 group-hover:text-blue-400 transform group-hover:translate-x-1 transition-all pl-2"></i>
+                        </div>
+
+                        <!-- SE 5 -->
+                        <div onclick="bukaPopupKarier('se-qa')" class="cyber-card p-4 border border-slate-800 rounded-2xl cursor-pointer hover:border-blue-500/50 group flex justify-between items-center">
+                            <div class="space-y-1">
+                                <strong class="text-slate-200 block text-sm group-hover:text-blue-400 transition-colors">🧪 QA Engineer & Software Tester</strong>
+                                <p class="text-xs text-slate-400 leading-relaxed">Bertanggung jawab penuh mencari celah kerusakan (bug), menguji performa stress-test sistem, dan memastikan kualitas kelayakan aplikasi sebelum dirilis.</p>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-xs text-slate-600 group-hover:text-blue-400 transform group-hover:translate-x-1 transition-all pl-2"></i>
+                        </div>
+
+                        <!-- SE 6 -->
+                        <div onclick="bukaPopupKarier('se-ai')" class="cyber-card p-4 border border-slate-800 rounded-2xl cursor-pointer hover:border-blue-500/50 group flex justify-between items-center">
+                            <div class="space-y-1">
+                                <strong class="text-slate-200 block text-sm group-hover:text-blue-400 transition-colors">🤖 AI Integration & Automation Developer</strong>
+                                <p class="text-xs text-slate-400 leading-relaxed">Menghubungkan kecerdasan buatan LLM via API untuk otomatisasi alur kerja industri, data mining, dan pembuatan agen bot pintar.</p>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-xs text-slate-600 group-hover:text-blue-400 transform group-hover:translate-x-1 transition-all pl-2"></i>
+                        </div>
+
+                        <!-- SE 7 -->
+                        <div onclick="bukaPopupKarier('se-devops')" class="cyber-card p-4 border border-slate-800 rounded-2xl cursor-pointer hover:border-blue-500/50 group flex justify-between items-center">
+                            <div class="space-y-1">
+                                <strong class="text-slate-200 block text-sm group-hover:text-blue-400 transition-colors">🔄 DevOps & CI/CD Engineer</strong>
+                                <p class="text-xs text-slate-400 leading-relaxed">Menjembatani tim developer kode dengan tim operasional server melalui otomatisasi pengiriman kode (deployment pipeline) tanpa downtime.</p>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-xs text-slate-600 group-hover:text-blue-400 transform group-hover:translate-x-1 transition-all pl-2"></i>
+                        </div>
+
+                        <!-- SE 8 -->
+                        <div onclick="bukaPopupKarier('se-uiux')" class="cyber-card p-4 border border-slate-800 rounded-2xl cursor-pointer hover:border-blue-500/50 group flex justify-between items-center">
+                            <div class="space-y-1">
+                                <strong class="text-slate-200 block text-sm group-hover:text-blue-400 transition-colors">🎨 UI/UX Product Designer</strong>
+                                <p class="text-xs text-slate-400 leading-relaxed">Melakukan riset perilaku pengguna, merancang wireframe blueprint aplikasi, dan mendesain purwarupa (prototype) visual sebelum masuk tahap coding.</p>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-xs text-slate-600 group-hover:text-blue-400 transform group-hover:translate-x-1 transition-all pl-2"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- COLUMN B: NETWORK ENGINEER (NE) - NOW EXPANDED TO 8 OPTIONS -->
+            <div class="border border-cyan-900/40 bg-cyan-950/5 rounded-3xl p-6 md:p-8 shadow-2xl relative flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center gap-3 mb-6 border-b border-cyan-900/30 pb-4">
+                        <div class="p-3 bg-cyan-500/10 rounded-xl text-cyan-400 border border-cyan-500/20"><i class="fa-solid fa-network-wired text-2xl"></i></div>
+                        <div>
+                            <h3 class="text-xl font-extrabold text-white tracking-tight">Network Engineer (NE)</h3>
+                            <p class="text-[11px] text-cyan-400 font-mono">Fokus: Infrastructure, Hardware, & Security</p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <!-- NE 1 -->
+                        <div onclick="bukaPopupKarier('ne-admin')" class="cyber-card p-4 border border-slate-800 rounded-2xl cursor-pointer hover:border-cyan-500/50 group flex justify-between items-center">
+                            <div class="space-y-1">
+                                <strong class="text-slate-200 block text-sm group-hover:text-cyan-400 transition-colors">🌐 Network Infrastructure Administrator</strong>
+                                <p class="text-xs text-slate-400 leading-relaxed">Mengonfigurasi switch managed, perutean router, alokasi IP subnetting, serta manajemen distribusi bandwidth internet lokal.</p>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-xs text-slate-600 group-hover:text-cyan-400 transform group-hover:translate-x-1 transition-all pl-2"></i>
+                        </div>
+
+                        <!-- NE 2 -->
+                        <div onclick="bukaPopupKarier('ne-sysadmin')" class="cyber-card p-4 border border-slate-800 rounded-2xl cursor-pointer hover:border-cyan-500/50 group flex justify-between items-center">
+                            <div class="space-y-1">
+                                <strong class="text-slate-200 block text-sm group-hover:text-cyan-400 transition-colors">🐧 Linux System & Server Administrator</strong>
+                                <span class="text-xs text-slate-400 block leading-relaxed">Membangun server lokal maupun VPS berbasis CLI, konfigurasi DNS, Web Server, FTP, dan lingkungan hosting mandiri.</span>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-xs text-slate-600 group-hover:text-cyan-400 transform group-hover:translate-x-1 transition-all pl-2"></i>
+                        </div>
+
+                        <!-- NE 3 -->
+                        <div onclick="bukaPopupKarier('ne-cloud')" class="cyber-card p-4 border border-slate-800 rounded-2xl cursor-pointer hover:border-cyan-500/50 group flex justify-between items-center">
+                            <div class="space-y-1">
+                                <strong class="text-slate-200 block text-sm group-hover:text-cyan-400 transition-colors">☁️ Cloud Infrastructure Engineer</strong>
+                                <p class="text-xs text-slate-400 leading-relaxed">Mengelola klaster komputasi awan virtualisasi, kontainerisasi sistem, serta otomatisasi deployment server korporat.</p>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-xs text-slate-600 group-hover:text-cyan-400 transform group-hover:translate-x-1 transition-all pl-2"></i>
+                        </div>
+
+                        <!-- NE 4 -->
+                        <div onclick="bukaPopupKarier('ne-security')" class="cyber-card p-4 border border-slate-800 rounded-2xl cursor-pointer hover:border-cyan-500/50 group flex justify-between items-center">
+                            <div class="space-y-1">
+                                <strong class="text-slate-200 block text-sm group-hover:text-cyan-400 transition-colors">🔒 Cyber Security & Firewall Specialist</strong>
+                                <p class="text-xs text-slate-400 leading-relaxed">Melakukan monitoring paket data ilegal, enkripsi pertahanan server, penyusunan arsitektur IDS/IPS, serta mitigasi peretasan siber.</p>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-xs text-slate-600 group-hover:text-cyan-400 transform group-hover:translate-x-1 transition-all pl-2"></i>
+                        </div>
+
+                        <!-- NE 5 (NEW) -->
+                        <div onclick="bukaPopupKarier('ne-automation')" class="cyber-card p-4 border border-slate-800 rounded-2xl cursor-pointer hover:border-cyan-500/50 group flex justify-between items-center">
+                            <div class="space-y-1">
+                                <strong class="text-slate-200 block text-sm group-hover:text-cyan-400 transition-colors">🤖 Network Automation Engineer (NetDevOps)</strong>
+                                <p class="text-xs text-slate-400 leading-relaxed">Mengintegrasikan bahasa pemrograman ke dunia hardware jaringan untuk melakukan konfigurasi massal otomatis berbasis skrip code.</p>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-xs text-slate-600 group-hover:text-cyan-400 transform group-hover:translate-x-1 transition-all pl-2"></i>
+                        </div>
+
+                        <!-- NE 6 (NEW) -->
+                        <div onclick="bukaPopupKarier('ne-wireless')" class="cyber-card p-4 border border-slate-800 rounded-2xl cursor-pointer hover:border-cyan-500/50 group flex justify-between items-center">
+                            <div class="space-y-1">
+                                <strong class="text-slate-200 block text-sm group-hover:text-cyan-400 transition-colors">📶 Wireless & VoIP Telecom Specialist</strong>
+                                <p class="text-xs text-slate-400 leading-relaxed">Merancang propagasi sinyal Wi-Fi korporasi skala besar, manajemen Point-to-Point luar ruangan, serta integrasi telepon digital berbasis IP (VoIP).</p>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-xs text-slate-600 group-hover:text-cyan-400 transform group-hover:translate-x-1 transition-all pl-2"></i>
+                        </div>
+
+                        <!-- NE 7 (NEW) -->
+                        <div onclick="bukaPopupKarier('ne-noc')" class="cyber-card p-4 border border-slate-800 rounded-2xl cursor-pointer hover:border-cyan-500/50 group flex justify-between items-center">
+                            <div class="space-y-1">
+                                <strong class="text-slate-200 block text-sm group-hover:text-cyan-400 transition-colors">📊 NOC (Network Operation Center) Analyst</strong>
+                                <p class="text-xs text-slate-400 leading-relaxed">Bekerja di ruang monitoring utama memantau grafik kestabilan beban trafik data nasional dan menjadi lini pertama penanganan down-time.</p>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-xs text-slate-600 group-hover:text-cyan-400 transform group-hover:translate-x-1 transition-all pl-2"></i>
+                        </div>
+
+                        <!-- NE 8 (NEW) -->
+                        <div onclick="bukaPopupKarier('ne-pm')" class="cyber-card p-4 border border-slate-800 rounded-2xl cursor-pointer hover:border-cyan-500/50 group flex justify-between items-center">
+                            <div class="space-y-1">
+                                <strong class="text-slate-200 block text-sm group-hover:text-cyan-400 transition-colors">🏢 IT Infrastructure Project Manager</strong>
+                                <p class="text-xs text-slate-400 leading-relaxed">Memimpin manajemen proyek instalasi fisik Data Center, pengadaan perangkat, hingga menghitung estimasi anggaran biaya (RAB).</p>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-xs text-slate-600 group-hover:text-cyan-400 transform group-hover:translate-x-1 transition-all pl-2"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- LINK KEMBALI KE INTEGRASI DIAGNOSTIK UTAMA -->
+        <div class="bg-gradient-to-r from-slate-900 via-slate-900 to-slate-800 border border-slate-800 rounded-2xl p-6 text-center max-w-4xl mx-auto">
+            <h4 class="text-sm font-bold text-white mb-2">Blok spesialisasi mana yang paling cocok dengan karakter berpikir Anda?</h4>
+            <p class="text-xs text-slate-400 mb-4 max-w-2xl mx-auto">Gunakan sistem Uji Diagnostik Level 0 (Pengetahuan Dasar) & Level 1 (Kuesioner Bakat) kami untuk menguji kecenderungan Anda secara otomatis.</p>
+            <a href="level0_pengetahuan_umum.html" class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-cyan-600 hover:opacity-95 text-white font-mono text-xs font-bold rounded-xl shadow-lg transition-all">
+                Mulai Tes Diagnostik Sekarang <i class="fa-solid fa-arrow-right text-[10px]"></i>
+            </a>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-slate-900 bg-slate-950/80 py-4 px-4 text-center text-[11px] text-slate-600 font-mono">
+        © 2026 Jurusan TJKT — SMK Ananda Mitra Industri Deltamas. Berfungsi Penuh Terintegrasi Sistem.
+    </footer>
+
+    <!-- INTERACTIVE MODAL POP-UP DETAIL EXPANSION -->
+    <div id="popupKarier" class="fixed inset-0 bg-slate-950/90 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-xl p-6 shadow-2xl relative max-h-[85vh] overflow-y-auto">
+            
+            <!-- Close Button -->
+            <button onclick="tutupPopup()" class="absolute top-4 right-4 text-slate-500 hover:text-white transition-colors p-1">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <!-- Container Target Injector Data -->
+            <div id="popupBody" class="space-y-5"></div>
+
+            <div class="mt-6 pt-4 border-t border-slate-800 flex justify-end">
+                <button onclick="tutupPopup()" class="px-5 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white font-mono text-xs font-bold rounded-xl transition-colors">
+                    Selesai Membaca & Tutup
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- BANK DATA JAVASCRIPT BALANCED EXPANSION (8 SE + 8 NE) -->
+    <script>
+        const bankDataKarierDetail = {
+            // === RUMPUN SOFTWARE ENGINEERING (SE) ===
+            'se-frontend': {
+                title: "💻 Front-End Web Developer",
+                rumpun: "Software Engineering (SE)",
+                warna: "text-blue-400",
+                maksudTujuan: "Menerjemahkan rancangan desain visual ke dalam baris kode agar aplikasi atau website dapat tampil indah, responsif, dan interaktif ketika diakses oleh pengguna melalui browser.",
+                tugas: [
+                    "Menyusun struktur layout halaman menggunakan HTML5, CSS Grid, dan Flexbox.",
+                    "Membuat interaktivitas tombol, animasi perpindahan halaman, dan validasi form di sisi klien.",
+                    "Memastikan performa pemuatan (loading) aset visual berjalan cepat dan optimal."
+                ],
+                tools: ["VS Code", "HTML5 / CSS3 / JavaScript", "Tailwind CSS", "React.js / Vue.js", "Git / GitHub"],
+                gaji: "Rp 5.500.000 - Rp 9.000.000 / bulan"
+            },
+            'se-backend': {
+                title: "⚙️ Back-End & API Engineer",
+                rumpun: "Software Engineering (SE)",
+                warna: "text-blue-400",
+                maksudTujuan: "Membangun pusat kendali logika aplikasi di latar belakang server, memproses sistem otentikasi login, manipulasi data, transaksional, hingga distribusi gerbang data (API).",
+                tugas: [
+                    "Menulis skrip pengolahan data inti (seperti sistem registrasi, enkripsi password, dan penarikan laporan).",
+                    "Membuat endpoint RESTful API atau GraphQL sebagai jembatan penyuplai data ke sisi Front-End.",
+                    "Mengamankan server dari berbagai macam ancaman infiltrasi data sensitif seperti serangan SQL Injection."
+                ],
+                tools: ["Node.js / Express", "PHP / Laravel", "Python / FastAPI", "Postman (API Testing)", "JWT"],
+                gaji: "Rp 6.500.000 - Rp 11.000.000 / bulan"
+            },
+            'se-mobile': {
+                title: "📱 Mobile Application Developer",
+                rumpun: "Software Engineering (SE)",
+                warna: "text-blue-400",
+                maksudTujuan: "Mengembangkan produk aplikasi berbasis smartphone yang diinstal langsung ke dalam sistem operasi Android atau iOS agar berjalan efisien, hemat baterai, dan terintegrasi hardware bawaan HP.",
+                tugas: [
+                    "Membuat kode aplikasi mobile lintas platform (Cross-Platform) dengan satu basis kode.",
+                    "Menghubungkan sistem aplikasi dengan fitur bawaan smartphone seperti GPS Kamera, Bluetooth, atau Notifikasi Push.",
+                    "Mengompilasi dan mengunggah paket aplikasi (APK/IPA) menuju Google Play Store atau Apple App Store."
+                ],
+                tools: ["Flutter / Dart", "React Native", "Android Studio", "Xcode", "Firebase Cloud Messaging"],
+                gaji: "Rp 6.000.000 - Rp 11.500.000 / bulan"
+            },
+            'se-db': {
+                title: "🗄️ Database Architect & Administrator",
+                rumpun: "Software Engineering (SE)",
+                warna: "text-blue-400",
+                maksudTujuan: "Merancang fondasi arsitektur penyimpanan data industri agar struktur informasi tersusun rapi, konsisten, aman, terhindar dari duplikasi data, dan dapat dipanggil ulang secepat kilat.",
+                tugas: [
+                    "Merancang skema pemodelan relasi antar tabel data kompleks (Entity Relationship Diagram - ERD).",
+                    "Mengoptimalkan query SQL yang lambat melalui teknik pembuatan indeks table yang tepat.",
+                    "Menyusun sistem backup otomatis dan replikasi data klaster untuk mencegah bencana kehilangan data."
+                ],
+                tools: ["MySQL / MariaDB", "PostgreSQL", "MongoDB", "DBeaver / phpMyAdmin", "Redis Caching"],
+                gaji: "Rp 7.000.000 - Rp 12.000.000 / bulan"
+            },
+            'se-qa': {
+                title: "🧪 QA Engineer & Software Tester",
+                rumpun: "Software Engineering (SE)",
+                warna: "text-blue-400",
+                maksudTujuan: "Menjamin kualitas dan stabilitas produk digital dengan cara melacak kerusakan kode (bug) sebelum aplikasi tersebut diserahkan ke tangan pengguna atau klien industri.",
+                tugas: [
+                    "Menyusun skenario pengujian aplikasi (Test Case) berdasarkan kebutuhan fungsional sistem.",
+                    "Menulis skrip pengujian otomatis (Automation Testing) untuk menghemat waktu pengecekan manual.",
+                    "Melakukan uji ketahanan beban server (Stress-Testing) untuk melihat batas maksimal kapasitas aplikasi."
+                ],
+                tools: ["Selenium", "Cypress", "JMeter (Stress Test)", "Appium", "Jira / Trello"],
+                gaji: "Rp 5.500.000 - Rp 9.500.000 / bulan"
+            },
+            'se-ai': {
+                title: "🤖 AI Integration & Automation Developer",
+                rumpun: "Software Engineering (SE)",
+                warna: "text-blue-400",
+                maksudTujuan: "Menghubungkan kekuatan model kecerdasan buatan (Artificial Intelligence) ke dalam aplikasi internal untuk otomatisasi proses bisnis mandiri, analisis data prediktif, dan asisten bot.",
+                tugas: [
+                    "Mengintegrasikan API LLM (seperti Google AI Studio / Gemini API) ke dalam sistem aplikasi.",
+                    "Membuat skrip otomatisasi pemrosesan dokumen, ekstraksi teks, dan pengolahan data massal.",
+                    "Membangun alur logika percakapan natural agen bot pintar penanganan keluhan pelanggan."
+                ],
+                tools: ["Python Language", "Google AI Studio API", "LangChain", "Hugging Face", "Cloud Run"],
+                gaji: "Rp 8.000.000 - Rp 15.000.000 / bulan"
+            },
+            'se-devops': {
+                title: "🔄 DevOps & CI/CD Engineer",
+                rumpun: "Software Engineering (SE)",
+                warna: "text-blue-400",
+                maksudTujuan: "Membangun jembatan otomatisasi rilis produk dari tim developer menuju server produksi publik secara kilat, aman, tanpa kesalahan manual, dan menjaga sistem tetap online 24 jam.",
+                tugas: [
+                    "Menyusun jalur otomatisasi pengujian dan perilisan aplikasi otomatis (Continuous Integration / Continuous Deployment).",
+                    "Mengisolasi lingkungan aplikasi ke dalam wadah kontainer ringan agar mudah dipindahkan antar server.",
+                    "Memantau stabilitas kesehatan infrastruktur cloud penampung aplikasi secara real-time."
+                ],
+                tools: ["Docker", "GitHub Actions", "Jenkins", "Kubernetes", "Linux Shell Scripting"],
+                gaji: "Rp 8.500.000 - Rp 16.000.000 / bulan"
+            },
+            'se-uiux': {
+                title: "🎨 UI/UX Product Designer",
+                rumpun: "Software Engineering (SE)",
+                warna: "text-blue-400",
+                maksudTujuan: "Melakukan riset mendalam terhadap kebiasaan target pengguna, merancang peta alur navigasi aplikasi, dan membuat desain visual purwarupa yang intuitif serta mudah dipahami.",
+                tugas: [
+                    "Membuat sketsa arsitektur informasi aplikasi berupa gambar hitam-putih (Wireframe).",
+                    "Mendesain purwarupa interaktif yang menyerupai aplikasi asli untuk diuji coba ke pengguna asli.",
+                    "Menyusun panduan komponen desain universal (Design System) untuk diserahkan kepada tim programmer."
+                ],
+                tools: ["Figma", "Adobe XD", "Miro / Whimsical", "UserTesting", "Maze"],
+                gaji: "Rp 5.500.000 - Rp 10.000.000 / bulan"
+            },
+
+            // === RUMPUN NETWORK ENGINEERING (NE) ===
+            'ne-admin': {
+                title: "🌐 Network Infrastructure Administrator",
+                rumpun: "Network Engineering (NE)",
+                warna: "text-cyan-400",
+                maksudTujuan: "Merancang jembatan komunikasi data antar komputer di seluruh perusahaan, memastikan aliran internet terdistribusi secara stabil, cepat, aman, dan tanpa hambatan interupsi koneksi putus.",
+                tugas: [
+                    "Melakukan setting/konfigurasi pada perangkat keras jaringan industri seperti RouterBoard dan Managed Switch.",
+                    "Melakukan perhitungan alokasi alamat komputer (IP Address Subnetting VLSM/CIDR).",
+                    "Membatasi dan membagi kecepatan internet (Bandwidth Management / Queue Tree) agar penggunaan merata."
+                ],
+                tools: ["MikroTik RouterOS / Winbox", "Cisco IOS", "Cisco Packet Tracer", "LAN Tester & Crimping Tools", "Kabel UTP / Fiber Optic"],
+                gaji: "Rp 5.500.000 - Rp 9.500.000 / bulan"
+            },
+            'ne-sysadmin': {
+                title: "🐧 Linux System & Server Administrator",
+                rumpun: "Network Engineering (NE)",
+                warna: "text-cyan-400",
+                maksudTujuan: "Menginstal, mengonfigurasi, dan memelihara komputer server berspesifikasi tinggi (Operating System Linux) tempat di mana file-file website dan basis data aplikasi perusahaan diletakkan agar bisa online 24 jam.",
+                tugas: [
+                    "Mengoperasikan sistem komputer server tanpa grafis (Full Command Line Interface - CLI).",
+                    "Membangun layanan server penting seperti DNS Server, Web Server (Apache/Nginx), FTP Server, dan SSH Server.",
+                    "Menganalisis log penggunaan memory dan penyimpanan server untuk mencegah crash sistem."
+                ],
+                tools: ["Linux Debian / Ubuntu Server", "Nginx / Apache", "BIND9 (DNS)", "SSH Server Terminal", "Samba File Server"],
+                gaji: "Rp 6.000.000 - Rp 10.500.000 / bulan"
+            },
+            'ne-cloud': {
+                title: "☁️ Cloud Infrastructure Engineer",
+                rumpun: "Network Engineering (NE)",
+                warna: "text-cyan-400",
+                maksudTujuan: "Memindahkan infrastruktur server fisik lokal menuju lingkungan virtualisasi awan (Cloud), memungkinkan efisiensi biaya perangkat keras dan kemudahan peningkatan performa komputer dalam hitungan detik.",
+                tugas: [
+                    "Membuat klaster virtualisasi sistem operasi komputer di dalam satu server fisik (Hypervisor Proxmox/VMware).",
+                    "Membungkus layanan aplikasi ke dalam kontainer-kontainer terisolasi terstandarisasi industri (Docker Container).",
+                    "Mengatur sistem autoscaling (penambahan otomatis performa server komputer saat pengunjung aplikasi meledak banyak)."
+                ],
+                tools: ["Proxmox VE", "Docker Engine", "Kubernetes", "AWS / Google Cloud Platform (GCP)", "Terraform"],
+                gaji: "Rp 8.000.000 - Rp 14.000.000 / bulan"
+            },
+            'ne-security': {
+                title: "🔒 Cyber Security & Firewall Specialist",
+                rumpun: "Network Engineering (NE)",
+                warna: "text-cyan-400",
+                maksudTujuan: "Bertindak sebagai benteng pertahanan lini terdepan (satpam siber) yang menjaga seluruh aset digital, server, dan lalu lintas jaringan komunikasi perusahaan dari upaya sabotase, peretasan, dan pencurian data.",
+                tugas: [
+                    "Menyusun aturan ketat penutupan port koneksi yang rawan disusupi pada sistem operasi (Firewall Rules Configuration).",
+                    "Melakukan penyadapan paket data yang lalu lalang untuk mendeteksi anomali serangan (Sniffing Traffic Analysis).",
+                    "Memasang sistem peringatan dini deteksi penyusup ilegal (IDS/IPS - Intrusion Detection/Prevention System)."
+                ],
+                tools: ["Wireshark", "Nmap Scanner", "Kali LinuxOS", "Suricata / Snort (IDS)", "PfSense Firewall"],
+                gaji: "Rp 8.500.000 - Rp 16.000.000 / bulan"
+            },
+            'ne-automation': {
+                title: "🤖 Network Automation Engineer (NetDevOps)",
+                rumpun: "Network Engineering (NE)",
+                warna: "text-cyan-400",
+                maksudTujuan: "Menghapuskan manajemen jaringan manual satu per satu dengan cara menulis skrip otomatisasi pemrograman, memungkinkan konfigurasi ribuan perangkat switch/router selesai dalam satu klik.",
+                tugas: [
+                    "Menulis skrip Python untuk otomatisasi penarikan data log backup konfigurasi berkala seluruh router cabang.",
+                    "Menggunakan tools manajemen konfigurasi terpusat untuk mendistribusikan aturan firewall massal tanpa remote manual.",
+                    "Membangun visualisasi dasbor kondisi kesehatan internal jaringan kantor."
+                ],
+                tools: ["Python Language", "Ansible", "Netmiko / Paramiko", "NAPALM", "Git / GitHub"],
+                gaji: "Rp 8.500.000 - Rp 15.000.000 / bulan"
+            },
+            'ne-wireless': {
+                title: "📶 Wireless & VoIP Telecom Specialist",
+                rumpun: "Network Engineering (NE)",
+                warna: "text-cyan-400",
+                maksudTujuan: "Fokus merancang infrastruktur gelombang jaringan tanpa kabel nirkabel (Wi-Fi Enterprise) dan jalur interkom suara/video berbasis IP (VoIP) untuk kantor bertingkat maupun industri luar ruangan.",
+                tugas: [
+                    "Melakukan pemetaan cakupan sinyal (Site Survey) nirkabel untuk menghindari area blank-spot frekuensi.",
+                    "Mengonfigurasi server telepon digital kantor (IP-PBX) agar karyawan bisa berkomunikasi suara via jaringan LAN.",
+                    "Mengatur sistem keamanan Wi-Fi berbasis login terpusat (WPA3-Enterprise / RADIUS Server)."
+                ],
+                tools: ["Ekahau Site Survey", "Asterisk (VoIP Server)", "Grandstream IP-PBX", "MikroTik CAPsMAN", "Ubiquiti UniFi Controller"],
+                gaji: "Rp 6.000.000 - Rp 11.000.000 / bulan"
+            },
+            'ne-noc': {
+                title: "📊 NOC (Network Operation Center) Analyst",
+                rumpun: "Network Engineering (NE)",
+                warna: "text-cyan-400",
+                maksudTujuan: "Bertindak sebagai pengawal pengawas 24 jam penuh di pusat kontrol data, membaca grafik telemetri, serta mendeteksi pemutusan jalur kabel fiber optik atau kelebihan beban internet sebelum pelanggan komplain.",
+                tugas: [
+                    "Melakukan pemantauan aktif grafik utilitas bandwidth internet harian korporasi.",
+                    "Menerbitkan tiket kerusakan (Trouble Ticket) kronologis kronis saat mendeteksi adanya perangkat yang mati (down).",
+                    "Melakukan penanganan pemulihan dasar (First-Level Troubleshooting) jalur routing alternatif."
+                ],
+                tools: ["Zabbix / Prometheus", "Grafana Dashboard", "PRTG Network Monitor", "The Dude", "Slack / Telegram Bot Alert"],
+                gaji: "Rp 5.500.000 - Rp 9.000.000 / bulan"
+            },
+            'ne-pm': {
+                title: "🏢 IT Infrastructure Project Manager",
+                rumpun: "Network Engineering (NE)",
+                warna: "text-cyan-400",
+                maksudTujuan: "Mengelola siklus lengkap manajemen konstruksi teknologi, mulai dari perencanaan blueprint gedung Data Center, negosiasi vendor hardware, hingga penyerahan jaringan operasional yang siap pakai.",
+                tugas: [
+                    "Menghitung Rencana Anggaran Biaya (RAB) pembelian perangkat server, rak kabinet, sistem pendingin, dan UPS.",
+                    "Menyusun linimasa jadwal kerja teknisi lapangan penarikan kabel jalur struktur (Structural Cabling Architecture).",
+                    "Memastikan standar keselamatan kerja K3 dan sertifikasi audit internasional jaringan terpenuhi."
+                ],
+                tools: ["Microsoft Project", "Trello / Asana", "Microsoft Excel (RAB Calculation)", "AutoCAD (Floor Plan Design)", "SLA Analytics"],
+                gaji: "Rp 9.000.000 - Rp 18.000.000 / bulan"
+            }
+        };
+
+        function bukaPopupKarier(key) {
+            const data = bankDataKarierDetail[key];
+            if (!data) return;
+
+            let listTugasHTML = "";
+            data.tugas.forEach(tg => {
+                listTugasHTML += `
+                    <li class="flex items-start gap-2.5 text-xs text-slate-300 leading-relaxed">
+                        <span class="text-emerald-500 mt-0.5"><i class="fa-solid fa-square-poll-horizontal text-xs"></i></span>
+                        <span>${tg}</span>
+                    </li>
+                `;
+            });
+
+            let badgesToolsHTML = "";
+            data.tools.forEach(tl => {
+                badgesToolsHTML += `
+                    <span class="px-2.5 py-1 bg-slate-950 border border-slate-800 rounded-lg text-[10px] font-mono text-slate-300 tracking-wide font-bold">
+                        <i class="fa-solid fa-screwdriver-wrench text-[9px] mr-1 text-slate-500"></i>${tl}
+                    </span>
+                `;
+            });
+
+            const body = document.getElementById('popupBody');
+            body.innerHTML = `
+                <div>
+                    <span class="text-[10px] font-mono font-bold px-2 py-0.5 bg-slate-800 rounded text-amber-500 uppercase tracking-wider border border-slate-700/60">${data.rumpun}</span>
+                    <h3 class="text-lg font-bold text-white mt-2 ${data.warna}">${data.title}</h3>
+                </div>
+
+                <div class="space-y-1.5 p-3.5 bg-slate-950 rounded-xl border border-slate-800/60">
+                    <h5 class="text-[11px] font-mono font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
+                        <i class="fa-solid fa-bullseye text-amber-500"></i> Maksud & Tujuan Utama Profesi:
+                    </h5>
+                    <p class="text-xs text-slate-300 leading-relaxed font-sans">${data.maksudTujuan}</p>
+                </div>
+
+                <div class="space-y-2">
+                    <h5 class="text-[11px] font-mono font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
+                        <i class="fa-solid fa-list-check text-blue-500"></i> Deskripsi Tugas Lapangan Harian:
+                    </h5>
+                    <ul class="space-y-2 pl-1">${listTugasHTML}</ul>
+                </div>
+
+                <div class="space-y-2">
+                    <h5 class="text-[11px] font-mono font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
+                        <i class="fa-solid fa-cubes text-purple-500"></i> Alat Kerja Esensial Industri (Tools):
+                    </h5>
+                    <div class="flex flex-wrap gap-1.5">${badgesToolsHTML}</div>
+                </div>
+
+                <div class="p-3 bg-gradient-to-r from-slate-950 to-slate-900 border border-slate-800 rounded-xl flex items-center justify-between">
+                    <div>
+                        <span class="block text-[9px] font-mono text-slate-500 uppercase tracking-wider">Proyeksi Pendapatan Industri</span>
+                        <span class="text-xs font-bold text-emerald-400 font-mono tracking-tight">${data.gaji}</span>
+                    </div>
+                    <div class="text-slate-700"><i class="fa-solid fa-wallet text-xl"></i></div>
+                </div>
+            `;
+
+            document.getElementById('popupKarier').classList.remove('hidden');
+        }
+
+        function tutupPopup() {
+            document.getElementById('popupKarier').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>

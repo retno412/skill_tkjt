@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ujian Teori SE - Level 2.1 | SMK AMI Deltamas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>body { font-family: 'Plus Jakarta Sans', sans-serif; }</style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between">
+
+    <header class="border-b border-slate-900 bg-slate-900/40 backdrop-blur sticky top-0 z-50 px-4 py-4">
+        <div class="max-w-4xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="p-2 bg-slate-900 border border-slate-800 text-blue-400 rounded-xl">
+                    <i class="fa-solid fa-code text-lg"></i>
+                </div>
+                <div>
+                    <h1 class="font-extrabold text-sm sm:text-base text-white tracking-tight">LEVEL 2.1: UJIAN TEORI SOFTWARE ENGINEER</h1>
+                    <p id="identitasSiswaHeader" class="text-[10px] font-mono text-slate-400">Memuat data...</p>
+                </div>
+            </div>
+            <button onclick="kembaliKeHub()" class="px-3 py-1.5 bg-slate-900 border border-slate-800 text-xs font-mono rounded-xl hover:bg-slate-800 text-slate-300 transition-all">
+                <i class="fa-solid fa-arrow-left"></i> Batal / Keluar
+            </button>
+        </div>
+    </header>
+
+    <main class="max-w-3xl mx-auto px-4 py-8 flex-grow w-full space-y-6">
+        
+        <div class="bg-gradient-to-r from-blue-950/40 to-slate-900 border border-blue-500/20 rounded-2xl p-4 flex gap-3 items-start">
+            <i class="fa-solid fa-triangle-exclamation text-blue-400 mt-0.5"></i>
+            <div class="text-xs space-y-1">
+                <h4 class="font-bold text-white">Instruksi Kunci Nilai Otomatis:</h4>
+                <p class="text-slate-400 leading-relaxed">Selesaikan seluruh 20 soal pilihan ganda di bawah ini. Setelah menekan tombol submit, skor akan langsung dikunci ke pusat data `sertifikasi_hub` untuk meja penguji lab.</p>
+            </div>
+        </div>
+
+        <form id="formUjianSE" class="space-y-6" onsubmit="return false;"></form>
+
+        <div class="pt-4 border-t border-slate-900 text-right">
+            <button type="button" onclick="prosesKunciJawabanSE()" class="px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white font-mono text-xs font-bold rounded-xl shadow-lg transition-all">
+                Kunci Nilai Teori SE <i class="fa-solid fa-lock ml-1"></i>
+            </button>
+        </div>
+    </main>
+
+    <footer class="border-t border-slate-900 py-4 text-center text-[10px] font-mono text-slate-600 bg-slate-950/50">
+        SMK Ananda Mitra Industri Deltamas — Ruang Uji Teori Komputasi Sistem.
+    </footer>
+
+    <script src="assets/soal_sertifikasi.js"></script>
+    <script>
+        const sessionNama = localStorage.getItem("siswa_nama");
+        const sessionNisn = localStorage.getItem("siswa_nisn");
+
+        if (!sessionNama || !sessionNisn) {
+            alert("Akses ditolak. Silakan isi identitas di hub utama.");
+            window.location.href = "se_vs_ne_hub.html";
+        } else {
+            document.getElementById("identitasSiswaHeader").innerText = `Peserta: ${sessionNama} (${sessionNisn}) | Spesialisasi: SE`;
+        }
+
+        function renderSoalSE() {
+            const form = document.getElementById("formUjianSE");
+            form.innerHTML = "";
+
+            if (typeof bankSoalSE === 'undefined' || !Array.isArray(bankSoalSE)) {
+                form.innerHTML = "<p class='text-red-400 text-xs font-mono p-4 bg-red-950/20 border border-red-900 rounded-xl'>Error: Bank data 'bankSoalSE' di assets/soal_sertifikasi.js belum terdefinisi.</p>";
+                return;
+            }
+
+            bankSoalSE.forEach((item, index) => {
+                let opsiHtml = "";
+                item.o.forEach((opsi, oIdx) => {
+                    opsiHtml += `
+                        <label class="flex items-start gap-3 p-3 bg-slate-900/60 border border-slate-800 rounded-xl cursor-pointer hover:border-slate-700 transition-all text-xs text-slate-300">
+                            <input type="radio" name="se_soal_${item.id}" value="${oIdx}" class="mt-0.5 accent-blue-500" required>
+                            <span>${opsi}</span>
+                        </label>
+                    `;
+                });
+
+                form.innerHTML += `
+                    <div class="bg-slate-900/30 p-5 rounded-2xl border border-slate-900 space-y-3">
+                        <div class="flex gap-3">
+                            <span class="w-6 h-6 rounded-lg bg-blue-500/10 border border-blue-500/30 font-mono text-xs text-blue-400 flex items-center justify-center font-bold">${index + 1}</span>
+                            <p class="text-xs sm:text-sm text-slate-200 font-medium leading-relaxed">${item.q}</p>
+                        </div>
+                        <div class="grid grid-cols-1 gap-2 pl-9">${opsiHtml}</div>
+                    </div>
+                `;
+            });
+        }
+
+        async function prosesKunciJawabanSE() {
+            let benar = 0;
+            let terjawab = 0;
+
+            bankSoalSE.forEach(item => {
+                const selected = document.querySelector(`input[name="se_soal_${item.id}"]:checked`);
+                if (selected) {
+                    terjawab++;
+                    if (parseInt(selected.value) === item.a) benar++;
+                }
+            });
+
+            if (terjawab < bankSoalSE.length) {
+                alert(`Anda baru mengisi ${terjawab} dari ${bankSoalSE.length} soal. Selesaikan semuanya.`);
+                return;
+            }
+
+            if (!confirm("Kunci nilai teori SE sekarang? Tindakan ini tidak dapat dibatalkan.")) return;
+
+            const skorTeoriFinal = Math.round((benar / bankSoalSE.length) * 100);
+
+            try {
+                const supabaseClient = window.supabaseClient || window.supabase;
+                if (!supabaseClient) throw new Error("Konektor internal Supabase (supabase-config.js) terputus.");
+
+                const { error } = await supabaseClient.from('sertifikasi_hub').insert([{
+                    nama_siswa: sessionNama,
+                    nisn: sessionNisn,
+                    spesialisasi_pilihan: "SE",
+                    skor_teori: skorTeoriFinal,
+                    is_lulus_praktik: false,
+                    nilai_praktik_total: null,
+                    predikat_akhir: "Menunggu Uji Praktik"
+                }]);
+
+                if (error) throw error;
+
+                localStorage.setItem("status_ujian_selesai", "SE");
+                localStorage.setItem("skor_teori_terakhir", skorTeoriFinal);
+                
+                window.location.href = "se_vs_ne_hub.html";
+            } catch (err) {
+                alert("Sinkronisasi Cloud Gagal: " + err.message);
+            }
+        }
+
+        function kembaliKeHub() {
+            window.location.href = "se_vs_ne_hub.html";
+        }
+
+        window.onload = renderSoalSE;
+    </script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 0: Pengetahuan Umum - TJKT AMI Deltamas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen p-4 md:p-8">
+    
+    <div class="max-w-3xl mx-auto bg-slate-900 border border-slate-800 rounded-xl p-4 mb-6 flex flex-wrap items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+            <div class="p-2.5 bg-amber-500/10 text-amber-400 rounded-lg border border-amber-500/20">
+                <i class="fa-solid fa-user-astronaut"></i>
+            </div>
+            <div>
+                <h4 id="displayNama" class="font-bold text-sm">Memuat...</h4>
+                <p id="displayKelas" class="text-xs text-slate-400">Kelas: -</p>
+            </div>
+        </div>
+        <div class="px-3 py-1.5 bg-slate-950 border border-slate-800 rounded-lg text-xs font-mono text-cyan-400">
+            LEVEL 0: FONDASI DASAR
+        </div>
+    </div>
+
+    <main class="max-w-3xl mx-auto">
+        <div class="mb-8">
+            <h2 class="text-xl font-bold text-white flex items-center gap-2">
+                <span class="text-amber-500">01.</span> K3LH, Perkakas, & Infrastruktur Dasar
+            </h2>
+            <p class="text-slate-400 text-xs mt-1">Jawablah pertanyaan prasyarat berikut dengan menganalisis opsi terbaik.</p>
+        </div>
+
+        <form id="quizFormLevel0" class="space-y-6">
+            <div id="containerSoal" class="space-y-6"></div>
+
+            <button type="submit" 
+                class="w-full bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-500 hover:to-orange-500 text-white font-semibold py-4 rounded-xl transition-all shadow-lg flex items-center justify-center gap-2 mt-8 text-sm">
+                Kunci Jawaban Level 0 & Lanjut Level 1 <i class="fa-solid fa-forward text-xs"></i>
+            </button>
+        </form>
+    </main>
+
+    <script>
+        // --- PROSES VALIDASI PROTEKSI SESI AKTIF (MIDDLEWARE) ---
+        const sessionSiswa = sessionStorage.getItem('active_siswa');
+        if (!sessionSiswa) {
+            alert('Akses Ditolak! Harap lengkapi identitas Anda terlebih dahulu.');
+            window.location.href = 'identitas_siswa.html';
+        }
+        const dataSiswa = JSON.parse(sessionSiswa);
+        document.getElementById('displayNama').innerText = dataSiswa.nama;
+        document.getElementById('displayKelas').innerText = `Kelas: ${dataSiswa.kelas} | NISN: ${dataSiswa.nisn}`;
+
+        // --- BANK DATA SOAL 15 BUTIR (K3LH, PERAKITAN, LOGIKA, IP DASAR) ---
+        const bankSoal = [
+            { id: 1, k: "K3LH", q: "Manakah tindakan pengamanan K3LH yang paling tepat dilakukan sebelum merakit komponen dalam casing komputer?", o: ["Memasang gelang antistatis pada pergelangan tangan", "Membasahi tangan agar debu menempel", "Menyalakan power supply terlebih dahulu", "Menggunakan sarung tangan kain wol"], a: 0 },
+            { id: 2, k: "K3LH", q: "Simbol bahaya listrik pada ruang server biasanya berwarna kuning dengan logo petir. Apa tindakan pencegahan utama saat memasuki area tersebut?", o: ["Membawa cairan pembersih terbuka", "Memastikan tubuh dan alas kaki kering sempurna", "Mematikan AC pendingin ruangan", "Membuka semua penutup kabel luar"], a: 1 },
+            { id: 3, k: "Perakitan", q: "Bagian motherboard yang berfungsi mengalirkan daya utama dari power supply adalah...", o: ["Slot RAM", "Konektor ATX 24-Pin", "Socket Prosedor", "Port SATA"], a: 1 },
+            { id: 4, k: "Perakitan", q: "Jika komputer berbunyi 'beep' panjang berulang kali saat pertama dinyalakan setelah dirakit, masalah utama kemungkinan besar ada pada komponen...", o: ["Storage/SSD", "RAM tidak terpasang dengan benar", "Kabel Front Panel terbalik", "Kipas CPU longgar"], a: 1 },
+            { id: 5, k: "Perakitan", q: "Media penyimpanan yang langsung terpasang pada slot PCIe/M.2 motherboard dan memiliki kecepatan transfer data tertinggi saat ini adalah...", o: ["Harddisk Eksternal", "SSD NVMe M.2", "SSD SATA 2.5", "Flashdisk USB 3.0"], a: 1 },
+            { id: 6, k: "Logika", q: "Sebuah program kasir mendeteksi: JIKA total belanja lebih dari 100 ribu, MAKA diskon 10%. Berapa yang harus dibayar jika total belanja tepat 100 ribu?", o: ["90 ribu", "100 ribu", "95 ribu", "80 ribu"], a: 1 },
+            { id: 7, k: "Logika", q: "Urutan logika algoritma instalasi sistem operasi yang benar setelah media installer (bootable) dimasukkan adalah...", o: ["Partisi Storage -> Atur Boot Priority -> Setup Akun", "Atur Boot Priority -> Partisi Storage -> Setup Akun", "Setup Akun -> Partisi Storage -> Atur Boot Priority", "Atur Boot Priority -> Setup Akun -> Partisi Storage"], a: 1 },
+            { id: 8, k: "Logika", q: "Gerbang logika yang hanya akan menghasilkan output bernilai 1 (True) jika SEMUA inputnya bernilai 1 adalah gerbang...", o: ["OR", "NOT", "AND", "XOR"], a: 2 },
+            { id: 9, k: "Networking", q: "Berapakah jumlah oktet dalam sebuah susunan alamat IPv4?", o: ["2 Oktet", "4 Oktet", "6 Oktet", "8 Oktet"], a: 1 },
+            { id: 10, k: "Networking", q: "Manakah di bawah ini yang merupakan contoh penulisan IP Address kelas C yang valid?", o: ["10.0.0.1", "172.16.31.1", "192.168.10.254", "255.255.255.0"], a: 2 },
+            { id: 11, k: "Networking", q: "Alat penguji yang digunakan khusus untuk memeriksa keterhubungan dan urutan pin kabel UTP (Crimping) RJ-45 dinamakan...", o: ["Multitester", "LAN Tester", "Fusion Splicer", "Oscilloscope"], a: 1 },
+            { id: 12, k: "K3LH", q: "Alat Pemadam Api Ringan (APAR) yang paling aman digunakan di dalam ruang laboratorium komputer atau data center karena tidak meninggalkan residu basah adalah tipe...", o: ["Air", "Busa (Foam)", "Karbondioksida (CO2) / Clean Agent", "Tepung Kimia (Dry Powder)"], a: 2 },
+            { id: 13, k: "Perakitan", q: "Fungsi utama pemberian Thermal Paste di atas permukaan prosesor (CPU) sebelum dipasang Heatsink/Cooler adalah...", o: ["Mencegah karat besi", "Merekatkan prosesor agar tidak goyang", "Mengoptimalkan penghantaran panas ke heatsink", "Menambah daya listrik prosesor"], a: 2 },
+            { id: 14, k: "Logika", q: "Jika x = 5, dan y = 10. Kemudian dilakukan operasi: x = x + 5. Berapakah nilai akhir dari perbandingan (x == y)?", o: ["False", "True", "Error", "Null"], a: 1 },
+            { id: 15, k: "Networking", q: "Subnet Mask default yang digunakan untuk jaringan IP Address kelas C dengan format CIDR /24 adalah...", o: ["255.0.0.0", "255.255.0.0", "255.255.255.0", "255.255.255.255"], a: 2 }
+        ];
+
+        // --- MERENDER SOAL KE ANTARMUKA SECARA AMAN ---
+        const container = document.getElementById('containerSoal');
+        bankSoal.forEach((item, index) => {
+            let optionsHTML = '';
+            item.o.forEach((opt, oIdx) => {
+                optionsHTML += `
+                    <label class="flex items-start gap-3 p-3.5 bg-slate-950 border border-slate-800 rounded-xl cursor-pointer hover:border-slate-700 transition-all text-sm group">
+                        <input type="radio" name="q_${item.id}" value="${oIdx}" required 
+                            class="mt-1 accent-amber-500 h-4 w-4 text-amber-600 border-slate-700 bg-slate-900 focus:ring-amber-500">
+                        <span class="text-slate-300 group-hover:text-white transition-colors">${opt}</span>
+                    </label>
+                `;
+            });
+
+            container.innerHTML += `
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-md">
+                    <div class="flex items-center justify-between gap-2 mb-3">
+                        <span class="text-xs font-mono font-bold bg-slate-800 px-2 py-1 rounded text-slate-400 uppercase tracking-wide">${item.k}</span>
+                        <span class="text-xs text-slate-500">Soal ${index + 1} dari 15</span>
+                    </div>
+                    <p class="text-slate-100 font-medium mb-4 text-sm leading-relaxed">${item.q}</p>
+                    <div class="grid grid-cols-1 gap-2.5">
+                        ${optionsHTML}
+                    </div>
+                </div>
+            `;
+        });
+
+        // --- SUBMIT JAWABAN & HITUNG SKOR SECARA REALTIME ---
+        document.getElementById('quizFormLevel0').addEventListener('submit', function(e) {
+            e.preventDefault();
+            let jawabanBenar = 0;
+
+            bankSoal.forEach(item => {
+                const terpilih = document.querySelector(`input[name="q_${item.id}"]:checked`);
+                if (terpilih && parseInt(terpilih.value) === item.a) {
+                    jawabanBenar++;
+                }
+            });
+
+            const skorAkhirLevel0 = Math.round((jawabanBenar / bankSoal.length) * 100);
+            
+            // Simpan hasil Level 0 ke dalam sesi global siswa saat ini
+            dataSiswa.skor_level0 = skorAkhirLevel0;
+            sessionStorage.setItem('active_siswa', JSON.stringify(dataSiswa));
+
+            // Beralih secara otomatis ke Level 1 (Tes Orientasi Bakat SE vs NE)
+            window.location.href = 'level1_tes_skill_tkjt.html';
+        });
+    </script>
+</body>
+</html>

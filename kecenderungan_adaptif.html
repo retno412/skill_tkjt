@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instrumen Uji Kecenderungan Adaptif | SMK AMI Deltamas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+        .cyber-radio:checked + label {
+            border-color: #10b981;
+            background-color: rgba(16, 185, 129, 0.1);
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between">
+
+    <header class="border-b border-slate-800 bg-slate-900/50 backdrop-blur sticky top-0 z-40 px-4 py-4">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="p-2 bg-gradient-to-br from-emerald-500 to-teal-500 text-slate-950 rounded-xl shadow-md">
+                    <i class="fa-solid fa-brain text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-sm md:text-base tracking-tight text-white">TES KECENDERUNGAN ADAPTIF</h1>
+                    <p class="text-xs text-slate-400 font-mono">Modul Evaluasi Analisis Sistematis & Pemetaan Minat</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-2">
+                <button onclick="bukaPanelGuru()" class="px-3 py-1.5 bg-slate-900 border border-slate-800 hover:border-slate-700 text-slate-400 hover:text-amber-400 rounded-lg text-xs font-mono transition-all">
+                    <i class="fa-solid fa-user-shield"></i> Mode Guru
+                </button>
+                <a href="index.html" class="px-3 py-1.5 bg-slate-900 border border-slate-800 hover:border-slate-700 text-slate-300 hover:text-white rounded-lg text-xs font-mono transition-all">
+                    <i class="fa-solid fa-arrow-left"></i> Kembali
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 py-8 flex-grow w-full">
+        
+        <div id="kartuIdentitas" class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl mb-8">
+            <h3 class="text-base font-bold text-white mb-2"><i class="fa-solid fa-id-card text-emerald-400 mr-1"></i> Validasi Identitas Peserta Uji</h3>
+            <p class="text-xs text-slate-400 mb-4">Silakan masukkan data diri Anda secara benar sebelum memulai pengerjaan instrumen skenario adaptif.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-[11px] font-mono text-slate-400 uppercase mb-1">Nama Lengkap Siswa</label>
+                    <input type="text" id="namaSiswa" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500 font-medium" placeholder="Contoh: Retno Ariyanti">
+                </div>
+                <div>
+                    <label class="block text-[11px] font-mono text-slate-400 uppercase mb-1">Nomor Induk Siswa Nasional (NISN)</label>
+                    <input type="text" id="nisnSiswa" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500 font-mono" placeholder="Masukkan 10 digit NISN">
+                </div>
+            </div>
+        </div>
+
+        <div id="areaInstrumen" class="space-y-8">
+            
+            <div class="border-l-4 border-emerald-500 pl-4 py-1">
+                <h2 class="text-lg font-extrabold text-white">Bagian A: Skenario Pilihan Ganda Pemetaan Minat</h2>
+                <p class="text-xs text-slate-400 font-mono">Pilihlah salah satu respons tindakan yang paling spontan mencerminkan cara berpikir Anda.</p>
+            </div>
+
+            <div id="renderBagianA" class="space-y-6"></div>
+
+            <div class="border-l-4 border-cyan-500 pl-4 py-1 pt-4">
+                <h2 class="text-lg font-extrabold text-white">Bagian B: Analisis Masalah Singkat Lapangan</h2>
+                <p class="text-xs text-slate-400 font-mono">Jelaskan runtunan pemecahan masalah secara tertulis. Bagian ini akan dinilai manual oleh Guru.</p>
+            </div>
+
+            <div id="renderBagianB" class="space-y-6"></div>
+
+            <div class="border-l-4 border-purple-500 pl-4 py-1 pt-4">
+                <h2 class="text-lg font-extrabold text-white">Bagian C: Esai Visi & Situasional</h2>
+                <p class="text-xs text-slate-400 font-mono">Kemukakan sudut pandang, kreativitas, dan strategi adaptasi teknologi Anda.</p>
+            </div>
+
+            <div id="renderBagianC" class="space-y-6"></div>
+
+            <div class="pt-6 border-t border-slate-900 text-center">
+                <button onclick="prosesSubmitJawabanSiswa()" class="px-8 py-4 bg-gradient-to-r from-emerald-600 to-teal-600 hover:opacity-95 text-white font-mono text-xs font-bold rounded-xl shadow-lg transition-all w-full md:w-auto">
+                    Kunci & Kirim Seluruh Jawaban Ke Database <i class="fa-solid fa-paper-plane ml-1"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="dasborHasilSiswa" class="bg-slate-900 border-2 border-emerald-500/30 rounded-3xl p-6 md:p-8 shadow-2xl hidden space-y-6">
+            <div class="text-center">
+                <span class="px-3 py-1 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider">Hasil Analisis Otomatis Komparatif</span>
+                <h3 class="text-2xl font-extrabold text-white mt-2">Kecenderungan Berpikir Anda</h3>
+                <p id="teksKategoriHasil" class="text-sm font-mono text-amber-400 mt-1 font-bold"></p>
+            </div>
+
+            <div class="space-y-4 bg-slate-950 p-4 rounded-2xl border border-slate-800">
+                <h4 class="text-xs font-mono text-slate-400 uppercase tracking-wide">Grafik Kecenderungan Karakter Digital (%):</h4>
+                
+                <div class="space-y-1">
+                    <div class="flex justify-between text-xs font-mono">
+                        <span class="text-blue-400 font-bold">Software Engineering (SE Logic)</span>
+                        <span id="persenSE" class="text-white">0%</span>
+                    </div>
+                    <div class="w-full bg-slate-900 h-4 rounded-full overflow-hidden border border-slate-800">
+                        <div id="barGrafikSE" class="bg-gradient-to-r from-blue-600 to-indigo-500 h-full transition-all duration-1000" style="width: 0%"></div>
+                    </div>
+                </div>
+
+                <div class="space-y-1 pt-2">
+                    <div class="flex justify-between text-xs font-mono">
+                        <span class="text-cyan-400 font-bold">Network Engineering (NE Infrastructure)</span>
+                        <span id="persenNE" class="text-white">0%</span>
+                    </div>
+                    <div class="w-full bg-slate-900 h-4 rounded-full overflow-hidden border border-slate-800">
+                        <div id="barGrafikNE" class="bg-gradient-to-r from-cyan-600 to-teal-500 h-full transition-all duration-1000" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 text-xs text-slate-400 leading-relaxed font-sans">
+                <strong class="text-white block mb-1">💡 Catatan Orientasi:</strong>
+                Hasil grafik di atas menunjukkan kecenderungan adaptasi alami Anda saat ini berdasarkan Bagian A. Jawaban analisis deskriptif (Bagian B & C) Anda telah aman dikirim ke basis data awan untuk diperiksa oleh tim pengajar guna menentukan skor akhir indeks adaptivitas Anda.
+            </div>
+        </div>
+
+        <div id="modalPanelGuru" class="fixed inset-0 bg-slate-950/95 backdrop-blur-md z-50 p-4 md:p-8 overflow-y-auto hidden">
+            <div class="max-w-5xl mx-auto space-y-6">
+                <div class="flex justify-between items-center border-b border-slate-800 pb-4">
+                    <div>
+                        <h2 class="text-xl font-black text-amber-400 tracking-tight"><i class="fa-solid fa-user-gear"></i> KONSOL EVALUASI & PENILAIAN INDEKS GURU</h2>
+                        <p class="text-xs text-slate-400 font-mono">Otoritas Penilaian Manual Bagian B & C Lembar Kerja Siswa</p>
+                    </div>
+                    <button onclick="tutupPanelGuru()" class="px-4 py-2 bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 font-mono text-xs font-bold rounded-xl transition-all">
+                        <i class="fa-solid fa-xmark"></i> Tutup Konsol
+                    </button>
+                </div>
+
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4">
+                    <h3 class="text-xs font-mono uppercase text-slate-400 mb-3"><i class="fa-solid fa-folder-open"></i> Antrean Lembar Jawaban Masuk Supabase:</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs text-slate-300 font-sans">
+                            <thead class="bg-slate-950 text-slate-400 font-mono text-[11px] uppercase border border-slate-800">
+                                <tr>
+                                    <th class="p-3">Nama Siswa</th>
+                                    <th class="p-3">NISN</th>
+                                    <th class="p-3">Kecenderungan A</th>
+                                    <th class="p-3">Indeks Adaptif (B+C)</th>
+                                    <th class="p-3 text-center">Aksi Kerja</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabelDaftarSiswa" class="divide-y divide-slate-800 border-x border-b border-slate-800">
+                                <tr>
+                                    <td colspan="5" class="p-4 text-center text-slate-500 font-mono">Belum ada data siswa yang masuk atau koneksi gagal...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="formPenilaianGuru" class="bg-slate-900 border-2 border-amber-500/30 rounded-2xl p-6 hidden space-y-5">
+                    <div class="border-b border-slate-800 pb-3">
+                        <h4 class="text-sm font-bold text-white">Lembar Evaluasi Siswa: <span id="gradingNamaSiswa" class="text-amber-400"></span></h4>
+                        <p class="text-xs text-slate-400 font-mono">Silakan baca lembar jawaban siswa dan masukkan input nilai kualitas (Kategori Bagian B: Maks 2 Per Soal)</p>
+                    </div>
+
+                    <div id="injectorLembarJawabanSiswa" class="space-y-4"></div>
+
+                    <div class="pt-4 border-t border-slate-800 grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
+                        <div>
+                            <label class="block text-[11px] font-mono text-amber-400 uppercase mb-1">TOTAL INDEKS ADAPTIF AKHIR (Maksimum Nilai Kualitas 19)</label>
+                            <input type="number" id="inputIndeksAdaptif" max="19" min="0" class="w-full bg-slate-950 border-2 border-amber-500/40 rounded-xl px-4 py-2.5 text-sm text-white font-mono font-bold focus:outline-none focus:border-amber-400" placeholder="Masukkan total skor gabungan kualitas">
+                        </div>
+                        <div class="text-right pt-4 md:pt-0">
+                            <button onclick="simpanGradingGuruKeSupabase()" class="px-6 py-3.5 bg-gradient-to-r from-amber-500 to-orange-500 hover:opacity-95 text-slate-950 font-mono text-xs font-extrabold rounded-xl shadow-lg transition-all w-full md:w-auto">
+                                <i class="fa-solid fa-floppy-disk"></i> Simpan & Perbarui Nilai Akhir Siswa
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="border-t border-slate-900 bg-slate-950/80 py-4 px-4 text-center text-[11px] text-slate-600 font-mono">
+        © 2026 Lab Komputer TJKT — Evaluasi Karakter Adaptif Industri Terintegrasi Supabase SDK.
+    </footer>
+
+    <script src="assets/soal2.js"></script>
+
+    <script>
+        let dataSubmissionLokal = [];
+        let idSubmissionTerpilih = null;
+
+        // 1. INITIAL SETUP INJEKSI SOAL SAAT JENDELA DI-LOAD
+        document.addEventListener("DOMContentLoaded", () => {
+            renderSkenarioUji();
+        });
+
+        function renderSkenarioUji() {
+            // Render Bagian A (Pilihan Ganda)
+            const divA = document.getElementById("renderBagianA");
+            divA.innerHTML = "";
+            bankSoalBagianA.forEach((soal, indeks) => {
+                let opsiHTML = "";
+                soal.opsi.forEach((op, idxOpsi) => {
+                    opsiHTML += `
+                        <div class="flex items-center">
+                            <input type="radio" name="soalA_${soal.id}" id="op_${soal.id}_${idxOpsi}" value="${op.kategori}" class="hidden cyber-radio">
+                            <label for="op_${soal.id}_${idxOpsi}" class="w-full p-3.5 bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-400 font-sans cursor-pointer hover:border-slate-700 hover:text-slate-200 transition-all flex items-center gap-3">
+                                <span class="w-5 h-5 rounded-full border border-slate-700 flex items-center justify-center font-mono text-[10px] text-slate-500 group-checked:border-emerald-500 bg-slate-900">${String.fromCharCode(65 + idxOpsi)}</span>
+                                <span class="flex-1">${op.teks}</span>
+                            </label>
+                        </div>
+                    `;
+                });
+
+                divA.innerHTML += `
+                    <div class="bg-slate-900 border border-slate-800/80 rounded-2xl p-5 space-y-4 shadow-md">
+                        <div class="flex gap-3">
+                            <span class="w-6 h-6 bg-slate-950 border border-slate-800 text-emerald-400 font-mono text-xs font-bold rounded-lg flex items-center justify-center">${indeks + 1}</span>
+                            <p class="text-xs sm:text-sm text-slate-200 font-medium leading-relaxed flex-1">${soal.pertanyaan}</p>
+                        </div>
+                        <div class="grid grid-cols-1 gap-2.5 pl-0 sm:pl-9">${opsiHTML}</div>
+                    </div>
+                `;
+            });
+
+            // Render Bagian B (Isian Singkat Kualitas)
+            const divB = document.getElementById("renderBagianB");
+            divB.innerHTML = "";
+            bankSoalBagianB.forEach((soal) => {
+                divB.innerHTML += `
+                    <div class="bg-slate-900 border border-slate-800/80 rounded-2xl p-5 space-y-2">
+                        <label class="block text-xs sm:text-sm text-slate-200 font-medium leading-relaxed font-sans font-bold"><span class="text-cyan-400 font-mono font-bold mr-1">${soal.id}.</span> ${soal.label}</label>
+                        <textarea id="inputB_${soal.id}" rows="3" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3.5 text-xs text-slate-300 font-sans focus:outline-none focus:border-cyan-500 leading-relaxed" placeholder="Tuliskan analisis langkah sistematis penyelesaian Anda di sini..."></textarea>
+                    </div>
+                `;
+            });
+
+            // Render Bagian C (Esai Bebas)
+            const divC = document.getElementById("renderBagianC");
+            divC.innerHTML = "";
+            bankSoalBagianC.forEach((soal) => {
+                divC.innerHTML += `
+                    <div class="bg-slate-900 border border-slate-800/80 rounded-2xl p-5 space-y-2">
+                        <label class="block text-xs sm:text-sm text-slate-200 font-medium leading-relaxed font-sans font-bold"><span class="text-purple-400 font-mono font-bold mr-1">${soal.id}.</span> ${soal.label}</label>
+                        <textarea id="inputC_${soal.id}" rows="4" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3.5 text-xs text-slate-300 font-sans focus:outline-none focus:border-purple-500 leading-relaxed" placeholder="Tuliskan jawaban eksplorasi esai mendalam Anda secara detail di sini..."></textarea>
+                    </div>
+                `;
+            });
+        }
+
+        // 2. SUBMIT CORE ENGINE: PROSES HITUNG OTOMATIS DAN SIMPAN KE DATABASE
+        async function prosesSubmitJawabanSiswa() {
+            const nama = document.getElementById("namaSiswa").value.trim();
+            const nisn = document.getElementById("nisnSiswa").value.trim();
+
+            if (!nama || !nisn) {
+                alert("Peringatan! Mohon isi Nama Lengkap dan NISN terlebih dahulu pada kartu identitas di atas.");
+                return;
+            }
+
+            // Hitung Skor Bagian A
+            let skorSE = 0;
+            let skorNE = 0;
+            let totalTerjawabA = 0;
+            let himpunanJawabanA = {};
+
+            bankSoalBagianA.forEach(soal => {
+                const elemenRadio = document.querySelector(`input[name="soalA_${soal.id}"]:checked`);
+                if (elemenRadio) {
+                    totalTerjawabA++;
+                    himpunanJawabanA[soal.id] = elemenRadio.value;
+                    if (elemenRadio.value === "SE") { skorSE++; }
+                    else if (elemenRadio.value === "NE") { skorNE++; }
+                }
+            });
+
+            if (totalTerjawabA < bankSoalBagianA.length) {
+                alert(`Gagal mengirim! Anda baru mengisi ${totalTerjawabA} dari ${bankSoalBagianA.length} soal pilihan ganda Bagian A. Harap isi semua skenario.`);
+                return;
+            }
+
+            // Tarik text data Bagian B
+            let himpunanJawabanB = {};
+            for (let soal of bankSoalBagianB) {
+                const teks = document.getElementById(`inputB_${soal.id}`).value.trim();
+                if (!teks) { alert(`Harap isi kolom esai nomor ${soal.id} pada Bagian B.`); return; }
+                himpunanJawabanB[soal.id] = teks;
+            }
+
+            // Tarik text data Bagian C
+            let himpunanJawabanC = {};
+            for (let soal of bankSoalBagianC) {
+                const teks = document.getElementById(`inputC_${soal.id}`).value.trim();
+                if (!teks) { alert(`Harap isi kolom esai nomor ${soal.id} pada Bagian C.`); return; }
+                himpunanJawabanC[soal.id] = teks;
+            }
+
+            // Kalkulasi Persentase Grafik Batang Siswa
+            const persenSE = Math.round((skorSE / bankSoalBagianA.length) * 100);
+            const persenNE = Math.round((skorNE / bankSoalBagianA.length) * 100);
+            let kecondongan = persenSE > persenNE ? "SOFTWARE ENGINEERING (SE)" : "NETWORK ENGINEERING (NE)";
+            if(persenSE === persenNE) { kecondongan = "BALANCE (ADAPTIF MULTITALENTA)"; }
+
+            // STRUKTUR PAKET DATA UNTUK ENTRI SUPABASE
+            const payloadData = {
+                nama_siswa: nama,
+                nisn: nisn,
+                skor_se_pilihan_ganda: skorSE,
+                skor_ne_pilihan_ganda: skorNE,
+                kecondongan_otomatis: kecondongan,
+                jawaban_json: {
+                    bagian_a: himpunanJawabanA,
+                    bagian_b: himpunanJawabanB,
+                    bagian_c: himpunanJawabanC
+                },
+                indeks_adaptif_guru: null // Default kosong, menunggu diinput guru
+            };
+
+            try {
+                const supabaseClient = window.supabaseClient || window.supabase;
+                if (!supabaseClient) throw new Error("Koneksi Supabase belum siap konfigurasinya.");
+
+                // Kirim ke tabel 'uji_adaptif' di Supabase
+                const { error } = await supabaseClient.from('uji_adaptif').insert([payloadData]);
+                if (error) throw error;
+
+                alert("Luar biasa! Seluruh lembar lembaran jawaban Anda telah aman tersimpan di database awan lab.");
+                
+                // Tampilkan Dasbor Grafik Batang Hasil Akhir Siswa
+                document.getElementById("kartuIdentitas").classList.add("hidden");
+                document.getElementById("areaInstrumen").classList.add("hidden");
+                
+                document.getElementById("teksKategoriHasil").innerText = `Dominasi Karakter: ${kecondongan}`;
+                document.getElementById("persenSE").innerText = `${persenSE}%`;
+                document.getElementById("persenNE").innerText = `${persenNE}%`;
+                document.getElementById("barGrafikSE").style.width = `${persenSE}%`;
+                document.getElementById("barGrafikNE").style.width = `${persenNE}%`;
+                
+                document.getElementById("dasborHasilSiswa").classList.remove("hidden");
+
+            } catch (err) {
+                console.error("Supabase Database Error:", err.message);
+                alert("Terjadi gangguan simpan basis data: " + err.message);
+            }
+        }
+
+        // 3. OYSTER CONTROL GURU: PULLING DATA & EVALUASI GRADING
+        function bukaPanelGuru() {
+            document.getElementById("modalPanelGuru").classList.remove("hidden");
+            muatSeluruhSubmissionSiswa();
+        }
+
+        function tutupPanelGuru() {
+            document.getElementById("modalPanelGuru").classList.add("hidden");
+        }
+
+        async function muatSeluruhSubmissionSiswa() {
+            const tbody = document.getElementById("tabelDaftarSiswa");
+            tbody.innerHTML = `<tr><td colspan='5' class='p-4 text-center font-mono text-amber-500 animate-pulse'>Menarik berkas sinkronisasi dari Supabase Cloud...</td></tr>`;
+            
+            try {
+                const supabaseClient = window.supabaseClient || window.supabase;
+                if (!supabaseClient) return;
+
+                const { data, error } = await supabaseClient.from('uji_adaptif').select('*').order('created_at', { ascending: false });
+                if (error) throw error;
+
+                dataSubmissionLokal = data;
+                tbody.innerHTML = "";
+
+                if (data.length === 0) {
+                    tbody.innerHTML = `<tr><td colspan='5' class='p-4 text-center font-mono text-slate-500'>Belum ada submission lembar siswa yang terekam.</td></tr>`;
+                    return;
+                }
+
+                data.forEach((siswa, indeks) => {
+                    tbody.innerHTML += `
+                        <tr class="hover:bg-slate-900/60 transition-colors">
+                            <td class="p-3 font-bold text-white">${siswa.nama_siswa}</td>
+                            <td class="p-3 font-mono">${siswa.nisn}</td>
+                            <td class="p-3"><span class="px-2 py-0.5 rounded text-[10px] font-mono bg-slate-950 border border-slate-800 text-blue-400">${siswa.kecondongan_otomatis}</span></td>
+                            <td class="p-3 font-mono font-bold text-center ${siswa.indeks_adaptif_guru ? 'text-emerald-400' : 'text-rose-400'}">${siswa.indeks_adaptif_guru !== null ? siswa.indeks_adaptif_guru + ' / 19' : 'Belum Dinilai'}</td>
+                            <td class="p-3 text-center">
+                                <button onclick="pilihSiswaUntukGrading(${indeks})" class="px-2.5 py-1 bg-amber-500 hover:bg-amber-400 text-slate-950 font-mono text-[10px] font-bold rounded transition-all">
+                                    <i class="fa-solid fa-file-pen"></i> Evaluasi Jawaban
+                                </button>
+                            </td>
+                        </tr>
+                    `;
+                });
+            } catch (err) {
+                tbody.innerHTML = `<tr><td colspan='5' class='p-4 text-center font-mono text-rose-500'>Error: ${err.message}</td></tr>`;
+            }
+        }
+
+        function pilihSiswaUntukGrading(indeks) {
+            const siswa = dataSubmissionLokal[indeks];
+            idSubmissionTerpilih = siswa.id;
+
+            document.getElementById("gradingNamaSiswa").innerText = `${siswa.nama_siswa} (${siswa.nisn})`;
+            document.getElementById("inputIndeksAdaptif").value = siswa.indeks_adaptif_guru || "";
+
+            const divLembar = document.getElementById("injectorLembarJawabanSiswa");
+            divLembar.innerHTML = "";
+
+            // Inject Bagian B untuk dibaca Guru
+            divLembar.innerHTML += `<h5 class='text-xs font-mono font-bold text-cyan-400 uppercase tracking-wider border-b border-slate-800 pb-1 mt-2'>Tinjauan Lembar Esai Bagian B (Langkah Lapangan):</h5>`;
+            bankSoalBagianB.forEach(q => {
+                const jwb = siswa.jawaban_json?.bagian_b?.[q.id] || "Siswa tidak mengisi.";
+                divLembar.innerHTML += `
+                    <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 space-y-1">
+                        <div class="text-xs text-slate-400 font-medium font-mono"><span class="text-white font-bold">${q.id}.</span> ${q.label}</div>
+                        <div class="text-xs text-slate-200 bg-slate-900/60 p-2 rounded. border border-slate-800/40 whitespace-pre-line">${jwb}</div>
+                    </div>
+                `;
+            });
+
+            // Inject Bagian C untuk dibaca Guru
+            divLembar.innerHTML += `<h5 class='text-xs font-mono font-bold text-purple-400 uppercase tracking-wider border-b border-slate-800 pb-1 mt-4'>Tinjauan Lembar Esai Bagian C (Visi Adaptasi):</h5>`;
+            bankSoalBagianC.forEach(q => {
+                const jwb = siswa.jawaban_json?.bagian_c?.[q.id] || "Siswa tidak mengisi.";
+                divLembar.innerHTML += `
+                    <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 space-y-1">
+                        <div class="text-xs text-slate-400 font-medium font-mono"><span class="text-white font-bold">${q.id}.</span> ${q.label}</div>
+                        <div class="text-xs text-slate-200 bg-slate-900/60 p-2 rounded border border-slate-800/40 whitespace-pre-line">${jwb}</div>
+                    </div>
+                `;
+            });
+
+            document.getElementById("formPenilaianGuru").classList.remove("hidden");
+            document.getElementById("formPenilaianGuru").scrollIntoView({ behavior: 'smooth' });
+        }
+
+        async function simpanGradingGuruKeSupabase() {
+            const skorIndeks = document.getElementById("inputIndeksAdaptif").value;
+            if (skorIndeks === "") { alert("Mohon input nilai kualitas Indeks Adaptif akhir terlebih dahulu."); return; }
+
+            const nilaiNumerik = parseInt(skorIndeks);
+            if (nilaiNumerik < 0 || nilaiNumerik > 19) { alert("Skor tidak valid! Batas nilai maksimum indeks adaptif adalah 19."); return; }
+
+            try {
+                const supabaseClient = window.supabaseClient || window.supabase;
+                const { error } = await supabaseClient.from('uji_adaptif').update({ indeks_adaptif_guru: nilaiNumerik }).eq('id', idSubmissionTerpilih);
+                if (error) throw error;
+
+                alert("Sukses! Nilai Indeks Adaptif siswa berhasil dikunci ke database.");
+                document.getElementById("formPenilaianGuru").classList.add("hidden");
+                muatSeluruhSubmissionSiswa();
+            } catch (err) {
+                alert("Gagal memperbarui nilai: " + err.message);
+            }
+        }
+    </script>
+</body>
+</html>

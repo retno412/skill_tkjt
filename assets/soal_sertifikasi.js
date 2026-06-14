@@ -1,0 +1,46 @@
+// Bank Data Ujian Teori Sertifikasi Internal Akhir (Fase F)
+const bankSoalSE = [
+    { id: 1, q: "Manakah sintaks yang benar untuk mendeklarasikan fungsi asinkron pada JavaScript?", o: ["function async() {}", "async function myFn() {}", "defer function myFn() {}", "void async myFn() {}"], a: 1 },
+    { id: 2, q: "Dalam arsitektur REST API, HTTP Method yang digunakan untuk memperbarui data secara parsial adalah...", o: ["GET", "POST", "PUT", "PATCH"], a: 3 },
+    { id: 3, q: "Perintah SQL untuk menambahkan kolom baru pada tabel yang sudah ada adalah...", o: ["UPDATE TABLE", "INSERT INTO", "ALTER TABLE", "MODIFY TABLE"], a: 2 },
+    { id: 4, q: "Kondisi di mana aplikasi mencoba mengakses index array yang tidak tersedia disebut...", o: ["NullPointerException", "Stack Overflow", "Index Out Of Bounds", "Memory Leak"], a: 2 },
+    { id: 5, q: "Manakah di bawah ini yang merupakan keuntungan utama menggunakan Git Branching?", o: ["Mempercepat koneksi server", "Isolasi fitur pengembangan tanpa merusak kode utama", "Otomatis enkripsi database", "Menghapus bug secara ajaib"], a: 1 },
+    { id: 6, q: "Format pertukaran data yang ringan dan berbasis teks, sangat umum digunakan pada API modern adalah...", o: ["XML", "JSON", "YAML", "CSV"], a: 1 },
+    { id: 7, q: "Apa kegunaan utama dari operasi 'Database Indexing'?", o: ["Mengurangi ukuran storage file", "Mempercepat eksekusi query pembacaan data", "Membatasi hak akses user admin", "Melakukan enkripsi password"], a: 1 },
+    { id: 8, q: "Prinsip OOP di mana sebuah class anak mewarisi sifat dan perilaku dari class induk disebut...", o: ["Encapsulation", "Polymorphism", "Inheritance", "Abstraction"], a: 2 },
+    { id: 9, q: "Manakah tag HTML5 yang digunakan secara spesifik untuk merender grafik vektor atau game 2D interaktif?", o: ["<picture>", "<canvas>", "<graphics>", "<svg-render>"], a: 1 },
+    { id: 10, q: "Dalam CSS Grid, properti yang digunakan untuk menentukan jarak renggang antar baris dan kolom adalah...", o: ["margin", "padding", "gap", "spacing"], a: 2 },
+    { id: 11, q: "Algoritma sorting yang bekerja dengan membagi array menjadi dua sub-array secara rekursif disebut...", o: ["Bubble Sort", "Selection Sort", "Merge Sort", "Insertion Sort"], a: 2 },
+    { id: 12, q: "Status kode HTTP 403 melambangkan kondisi...", o: ["Not Found", "Unauthorized / Forbidden", "Internal Server Error", "Bad Gateway"], a: 1 },
+    { id: 13, q: "Fungsi dari perintah 'npm install' pada ekosistem Node.js adalah...", o: ["Menjalankan server lokal", "Mengunduh dependensi proyek berdasarkan package.json", "Melakukan compile kode menjadi binary", "Mengirimkan kode ke repositori GitHub"], a: 1 },
+    { id: 14, q: "Proses mengubah struktur basis data yang rumit menjadi beberapa tabel terelasi untuk mencegah anomali disebut...", o: ["Denormalisasi", "Normalisasi", "Enkapsulasi", "Indexing"], a: 1 },
+    { id: 15, q: "Manakah struktur data yang menerapkan prinsip FIFO (First In First Out)?", o: ["Stack", "Queue", "Tree", "Graph"], a: 1 },
+    { id: 16, q: "Dalam PHP modern, superglobal variable yang digunakan untuk menangkap data formulir bermetode rahasia adalah...", o: ["$_GET", "$_REQUEST", "$_POST", "$_SESSION"], a: 2 },
+    { id: 17, q: "Framework CSS utilitas-pertama yang menggunakan kelas-kelas seperti 'flex, pt-4, text-center' adalah...", o: ["Bootstrap", "Bulma", "Tailwind CSS", "Sass"], a: 2 },
+    { id: 18, q: "Perintah git untuk mendownload salinan repositori jarak jauh ke mesin lokal pertama kali adalah...", o: ["git fetch", "git pull", "git clone", "git push"], a: 2 },
+    { id: 19, q: "Jenis database NoSQL yang menyimpan datanya dalam format dokumen mirip JSON adalah...", o: ["MySQL", "PostgreSQL", "MongoDB", "Oracle"], a: 2 },
+    { id: 20, q: "Apa fungsi dari blok perintah 'try...catch' dalam pemrograman modern?", o: ["Membuat perulangan tak terbatas", "Menangani eksepsi/error agar aplikasi tidak crash", "Mempercepat kalkulasi matematika", "Memutuskan koneksi database secara paksa"], a: 1 }
+];
+
+const bankSoalNE = [
+    { id: 1, q: "Berapakah jumlah host maksimum yang dapat digunakan pada subnet dengan mask /24?", o: ["254", "255", "256", "128"], a: 0 },
+    { id: 2, q: "Protokol jaringan yang bertugas mendistribusikan konfigurasi IP secara otomatis ke klien adalah...", o: ["DNS", "DHCP", "FTP", "SSH"], a: 1 },
+    { id: 3, q: "Manakah urutan standar kabel jaringan internasional T568B untuk pin 1 hingga pin 3?", o: ["Putih Hijau, Hijau, Putih Oranye", "Putih Oranye, Oranye, Putih Hijau", "Putih Oranye, Hijau, Oranye", "Putih Cokelat, Cokelat, Oranye"], a: 1 },
+    { id: 4, q: "Port standar yang digunakan oleh protokol secure shell (SSH) untuk remote access CLI adalah...", o: ["Port 21", "Port 22", "Port 23", "Port 80"], a: 1 },
+    { id: 5, q: "Layer berapakah Network Layer berada pada model referensi arsitektur OSI Layer?", o: ["Layer 2", "Layer 3", "Layer 4", "Layer 7"], a: 1 },
+    { id: 6, q: "Perangkat jaringan jembatan pintar yang bekerja memfilter dan meneruskan data berdasarkan MAC Address adalah...", o: ["Hub", "Router", "Switch Layer 2", "Repeater"], a: 2 },
+    { id: 7, q: "Protokol routing dinamis berjenis Link-State yang sangat populer digunakan pada jaringan skala besar internal adalah...", o: ["RIP", "BGP", "OSPF", "EIGRP"], a: 2 },
+    { id: 8, q: "Fitur pada router yang bertugas menerjemahkan IP Private menjadi IP Public agar bisa internetan disebut...", o: ["VLAN", "NAT", "DHCP Relay", "DMZ"], a: 1 },
+    { id: 9, q: "Alat pengukur kekuatan redaman sinyal pada media transmisi kabel serat optik (Fiber Optic) disebut...", o: ["OTDR / OPM", "LAN Tester", "Fusion Splicer", "Crimping Tools"], a: 0 },
+    { id: 10, q: "Teknologi virtualisasi untuk memecah satu switch fisik menjadi beberapa broadcast domain logis terisolasi dinamakan...", o: ["VPN", "VLAN", "STP", "Trunking"], a: 1 },
+    { id: 11, q: "Berapakah subnet mask default untuk kelas IP Address C?", o: ["255.0.0.0", "255.255.0.0", "255.255.255.0", "255.255.255.255"], a: 2 },
+    { id: 12, q: "Perintah CLI Linux/Windows untuk melacak jalur rute lompatan (hop) paket data menuju tujuan adalah...", o: ["ping", "nslookup", "traceroute / tracert", "netstat"], a: 2 },
+    { id: 13, q: "Manakah frekuensi Wi-Fi standar yang memiliki jangkauan lebih luas tetapi rentan interferensi padat?", o: ["5 GHz", "2.4 GHz", "60 GHz", "900 MHz"], a: 1 },
+    { id: 14, q: "Serangan siber berupa membanjiri trafik server hingga lumpuh total tidak bisa diakses disebut...", o: ["Phishing", "Man-in-the-Middle", "DDoS", "SQL Injection"], a: 2 },
+    { id: 15, q: "Perangkat atau software pengaman perimeter jaringan yang bertugas menyaring paket data berdasarkan aturan tertentu adalah...", o: ["Access Point", "Firewall", "Gateway", "Proxy Server"], a: 1 },
+    { id: 16, q: "Dalam topologi jaringan komputer, model jaringan berbentuk cincin di mana data berputar satu arah disebut...", o: ["Star Topology", "Bus Topology", "Ring Topology", "Mesh Topology"], a: 2 },
+    { id: 17, q: "Jenis konektor yang umum dipasang pada ujung kabel fiber optik berbentuk kotak dorong-tarik adalah...", o: ["RJ-45", "Konektor SC", "Konektor BNC", "Konektor F"], a: 1 },
+    { id: 18, q: "Protokol transport layer yang bersifat connectionless, cepat, dan cocok untuk streaming video/game online yaitu...", o: ["TCP", "UDP", "SCTP", "ICMP"], a: 1 },
+    { id: 19, q: "Berapakah panjang bit arsitektur alamat untuk IPv6?", o: ["32 bit", "64 bit", "48 bit", "128 bit"], a: 3 },
+    { id: 20, q: "Teknologi yang digunakan untuk mengamankan enkripsi jalur data privasi melintasi jaringan internet publik adalah...", o: ["VLAN", "VPN", "Proxy", "NAT"], a: 1 }
+];

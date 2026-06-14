@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tes 2: Kecenderungan Adaptif</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="assets/theme.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="assets/app.js"></script>
+</head>
+<body class="p-4 md:p-8">
+  <div id="navbar-placeholder"></div>
+  <main class="max-w-3xl mx-auto mt-6">
+    <div class="cyber-card p-4 mb-6 flex justify-between items-center bg-slate-900/90">
+      <span class="font-bold text-sm tracking-wide">MODUL 2: KECENDERUNGAN ADAPTIF</span>
+    </div>
+
+    <form id="form-tes-2" onsubmit="prosesTes2(event)" class="space-y-6">
+      <div class="p-2 text-xs font-bold font-mono tracking-widest text-blue-400 uppercase">Bagian A — Skenario Kasus</div>
+      
+      <div id="container-skenario" class="space-y-6"></div>
+
+      <div class="p-2 text-xs font-bold font-mono tracking-widest text-purple-400 uppercase mt-8">Bagian B — Analisis Singkat</div>
+      <div class="cyber-card p-5">
+        <p class="font-medium mb-2">13. Sebuah website sekolah tiba-tiba sangat lambat diakses saat pengumuman ujian. Tuliskan 3 langkah runtut analisisnya!</p>
+        <textarea name="q13" rows="2" required class="w-full bg-black/30 border border-gray-700 rounded-lg p-3 text-white focus:outline-none focus:border-purple-500 transition"></textarea>
+      </div>
+      <div id="container-analisis-singkat" class="space-y-6"></div>
+
+      <div class="p-2 text-xs font-bold font-mono tracking-widest text-cyan-400 uppercase mt-8">Bagian C — Esai Situasional</div>
+      <div class="cyber-card p-5">
+        <p class="font-medium mb-2">18. Ceritakan masalah IT/Teknologi tersulit yang pernah kamu hadapi dan bagaimana caramu memecahkannya!</p>
+        <textarea name="q18" rows="3" required class="w-full bg-black/30 border border-gray-700 rounded-lg p-3 text-white focus:outline-none focus:border-cyan-500 transition"></textarea>
+      </div>
+      <div class="cyber-card p-5">
+        <p class="font-medium mb-2">19. Jika diberi kebebasan membuat proyek IT untuk sekolah, apa yang akan kamu buat dan jelaskan tahapannya!</p>
+        <textarea name="q19" rows="3" required class="w-full bg-black/30 border border-gray-700 rounded-lg p-3 text-white focus:outline-none focus:border-cyan-500 transition"></textarea>
+      </div>
+      <div class="cyber-card p-5">
+        <p class="font-medium mb-2">20. Bagaimana rencanamu agar keahlian teknismu tetap relevan dan tidak tertinggal 5 tahun ke depan?</p>
+        <textarea name="q20" rows="3" required class="w-full bg-black/30 border border-gray-700 rounded-lg p-3 text-white focus:outline-none focus:border-cyan-500 transition"></textarea>
+      </div>
+
+      <button type="submit" class="w-full py-4 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold rounded-xl shadow-lg transition tracking-wide uppercase text-sm">Kirim Hasil Tes 2</button>
+    </form>
+  </main>
+  <div id="footer-placeholder" class="mt-12"></div>
+  <script src="assets/components.js"></script>
+  <script>
+    lucide.createIcons();
+    const activeSiswa = JSON.parse(sessionStorage.getItem('active_siswa'));
+    if(!activeSiswa) window.location.href = 'identitas_siswa.html';
+
+    const skenarios = [
+      { n: 1, p: "Aplikasi web internal tidak bisa diakses, tindakan pertamamu adalah:", a: "Mengecek log aplikasi & integritas baris kode (SE)", b: "Mengecek koneksi ping server & interface kabel (NE)", c: "Mengecek struktur query database (SE)", d: "Mengecek konfigurasi DNS & status port (NE)" },
+      { n: 2, p: "Menghadapi masalah teknis baru yang belum pernah diajarkan guru:", a: "Memecahnya menjadi langkah logis berbasis algoritma runtut (SE)", b: "Menelusuri komponen fisik dan logika ujung-ke-ujung (NE)" },
+      { n: 3, p: "Sistem absensi sekolah error di hari penting, fokus perbaikanmu:", a: "Mencari letak bug logika pada source code aplikasi (SE)", b: "Memastikan stabilitas jaringan & server penampung beban data (NE)" },
+      { n: 4, p: "Layanan web berjalan sangat lambat, strategi penangananmu:", a: "Melakukan optimasi query SQL & refactoring kode agar efisien (SE)", b: "Mengecek manajemen bandwidth, utilitas beban link, & jalur routing (NE)" },
+      { n: 5, p: "Tuntutan adaptasi teknologi baru, kamu lebih memilih memperdalam:", a: "Bahasa pemrograman / framework arsitektur terbaru (SE)", b: "Perangkat keras, protokol routing, atau sistem operasi server baru (NE)" },
+      { n: 6, p: "Dalam pembagian tugas proyek IT kelompok, peran alami Anda:", a: "Merancang basis data & menulis logika inti program (SE)", b: "Menyiapkan infrastruktur server, pengkabelan, & distribusi akses (NE)" },
+      { n: 7, p: "Aplikasi rawan mengalami kebocoran data, langkah preventif Anda:", a: "Memperbaiki enkripsi data & menambal celah sanitasi kode input (SE)", b: "Memperkuat konfigurasi firewall & menutup port akses ilegal (NE)" },
+      { n: 8, p: "Untuk memastikan sistem berjalan sempurna sebelum serah terima:", a: "Melakukan unit testing & debugging berulang terhadap fungsionalitas program (SE)", b: "Melakukan uji ketahanan ping & kestabilan throughput jaringan (NE)" },
+      { n: 9, p: "Diberi waktu belajar mandiri selama 2 jam, topik pilihanmu:", a: "Membedah studi kasus implementasi OOP / API Integration (SE)", b: "Mensimulasikan topologi routing dinamis di Cisco Packet Tracer (NE)" },
+      { n: 10, p: "Dokumentasi proyek yang paling suka Anda rapikan:", a: "Dokumentasi struktur fungsi kode & dokumentasi database schema (SE)", b: "Dokumentasi cetak topologi jaringan & tabel alokasi IP Address (NE)" },
+      { n: 11, p: "Menghadapi eror berulang yang menguras kesabaran:", a: "Bertahan membaca kode baris demi baris menggunakan debugging tools (SE)", b: "Telaten memeriksa berkas konfigurasi OS Server / fisik kabel (NE)" },
+      { n: 12, p: "Indikator utama yang membuat Anda puas dalam menyelesaikan tugas:", a: "Ketika program lulus uji kompilasi dan seluruh modul berfungsi (SE)", b: "Ketika interkoneksi antar-node stabil, aman, dan tanpa data loss (NE)" }
+    ];
+
+    const containerS = document.getElementById('container-skenario');
+    skenarios.forEach(s => {
+      let optionsHTML = `
+        <label class="flex items-center gap-3 p-3 rounded-lg bg-black/20 hover:bg-black/40 cursor-pointer transition">
+          <input type="radio" name="q${s.n}" value="SE_A" required class="w-4 h-4 text-blue-500">
+          <span>A. ${s.a}</span>
+        </label>
+        <label class="flex items-center gap-3 p-3 rounded-lg bg-black/20 hover:bg-black/40 cursor-pointer transition">
+          <input type="radio" name="q${s.n}" value="NE_B" class="w-4 h-4 text-cyan-500">
+          <span>B. ${s.b}</span>
+        </label>
+      `;
+      if(s.c) {
+        optionsHTML += `
+          <label class="flex items-center gap-3 p-3 rounded-lg bg-black/20 hover:bg-black/40 cursor-pointer transition">
+            <input type="radio" name="q${s.n}" value="SE_C" class="w-4 h-4 text-indigo-500">
+            <span>C. ${s.c}</span>
+          </label>
+          <label class="flex items-center gap-3 p-3 rounded-lg bg-black/20 hover:bg-black/40 cursor-pointer transition">
+            <input type="radio" name="q${s.n}" value="NE_D" class="w-4 h-4 text-purple-500">
+            <span>D. ${s.d}</span>
+          </label>
+        `;
+      }
+      containerS.innerHTML += `
+        <div class="cyber-card p-5">
+          <p class="font-medium mb-3">${s.n}. ${s.p}</p>
+          <div class="space-y-2">${optionsHTML}</div>
+        </div>`;
+    });
+
+    const analis = [
+      { n: 14, p: "Seluruh komputer dalam satu ruang Lab TKJT mendadak tidak mendapatkan akses internet. Tuliskan 3 langkah investigasi awalnya!" },
+      { n: 15, p: "Ketika program yang kamu buat dijalankan, tidak ada eror tetapi hasil kalkulasi rumusnya selalu salah. Tuliskan urutan penanganannya!" },
+      { n: 16, p: "Jaringan Wi-Fi lab sering putus hanya pada jam-jam tertentu setiap hari. Tuliskan dugaan penyebab utama dan cara membuktikannya!" },
+      { n: 17, p: "Jika kamu diwajibkan menggunakan software/tools baru yang belum pernah diajarkan, bagaimana strategi cepatmu untuk menguasainya?" }
+    ];
+    const containerAnalis = document.getElementById('container-analisis-singkat');
+    analis.forEach(a => {
+      containerAnalis.innerHTML += `
+        <div class="cyber-card p-5">
+          <p class="font-medium mb-2">${a.n}. ${a.p}</p>
+          <textarea name="q${a.n}" rows="2" required class="w-full bg-black/30 border border-gray-700 rounded-lg p-3 text-white focus:outline-none focus:border-purple-500 transition"></textarea>
+        </div>`;
+    });
+
+    async function prosesTes2(e) {
+      e.preventDefault();
+      const fd = new FormData(e.target);
+      let scoreSE = 0;
+      let scoreNE = 0;
+
+      for(let i=1; i<=12; i++) {
+        const val = fd.get(`q${i}`);
+        if(val && val.startsWith('SE')) scoreSE++;
+        if(val && val.startsWith('NE')) scoreNE++;
+      }
+
+      const pid = await AppCore.initiateTestSession(activeSiswa.id, 'Kecenderungan Adaptif');
+      if(pid) {
+         const bulkData = [];
+         for(let i=1; i<=20; i++) {
+           bulkData.push({
+             nomorSoal: i,
+             tipeSoal: i <= 12 ? 'PG' : (i <= 17 ? 'Analisis' : 'Esai'),
+             jawabanSiswa: fd.get(`q${i}`),
+             poinSE: (i <= 12 && fd.get(`q${i}`).startsWith('SE')) ? 1 : 0,
+             poinJKT: (i <= 12 && fd.get(`q${i}`).startsWith('NE')) ? 1 : 0
+           });
+         }
+         await AppCore.submitAnswersBulk(pid, bulkData);
+         await AppCore.finalizeTestScore(pid, scoreSE, scoreNE);
+         window.location.href = `hasil.html?pengerjaan_id=${pid}`;
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Admin Approval - TJKT AMI Deltamas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+        .dark .bg-circuit {
+            background-color: #0b0f19;
+            background-image: 
+                radial-gradient(at 47% 33%, rgba(16, 185, 129, 0.1) 0, transparent 59%), 
+                radial-gradient(at 82% 65%, rgba(6, 182, 212, 0.1) 0, transparent 55%),
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 dark:bg-[#0b0f19] dark:text-gray-100 antialiased bg-circuit min-h-screen flex flex-col transition-colors duration-300">
+
+    <!-- NAVBAR UTAMA -->
+    <nav class="backdrop-blur-md bg-white/80 dark:bg-[#0b0f19]/80 border-b border-slate-200 dark:border-gray-800 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex items-center gap-3">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-user-shield text-emerald-500 text-2xl animate-pulse"></i>
+                        <span class="font-mono font-extrabold text-xl tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-cyan-400">
+                            ADMIN PANEL
+                        </span>
+                    </div>
+                    <span class="hidden sm:inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-500/20">
+                        MASTER APPROVAL
+                    </span>
+                </div>
+
+                <div class="flex items-center gap-4">
+                    <span id="adminEmailBadge" class="hidden md:inline-block text-xs font-mono bg-slate-100 dark:bg-gray-800 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-gray-700">
+                        Memuat Sesi...
+                    </span>
+                    <button onclick="handleLogout()" class="px-4 py-2 rounded-lg text-xs font-bold bg-rose-600 hover:bg-rose-500 text-white shadow-lg transition duration-300 flex items-center gap-1.5">
+                        <i class="fa-solid fa-right-from-bracket"></i> LOGOUT
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- KONTEN UTAMA -->
+    <main class="flex-grow max-w-5xl w-full mx-auto px-4 py-10">
+        <div class="mb-8">
+            <h1 class="text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white flex items-center gap-3">
+                Persetujuan Akses Guru / Piket
+            </h1>
+            <p class="text-slate-500 dark:text-gray-400 text-sm mt-1">
+                Kelola hak akses masuk akun guru dan staf piket SMK AMI Deltamas yang sedang ditangguhkan.
+            </p>
+        </div>
+
+        <!-- STATS BAR -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+            <div class="bg-white dark:bg-[#111827] border border-slate-200 dark:border-gray-800 p-5 rounded-2xl flex items-center gap-4 shadow-sm">
+                <div class="w-12 h-12 rounded-xl bg-amber-50 dark:bg-amber-500/10 flex items-center justify-center text-amber-500">
+                    <i class="fa-solid fa-hourglass-half text-xl"></i>
+                </div>
+                <div>
+                    <div id="countPending" class="text-2xl font-bold font-mono text-slate-900 dark:text-white">0</div>
+                    <div class="text-xs text-slate-400 uppercase tracking-wider font-semibold">Menunggu Verifikasi</div>
+                </div>
+            </div>
+            <div class="bg-white dark:bg-[#111827] border border-slate-200 dark:border-gray-800 p-5 rounded-2xl flex items-center gap-4 shadow-sm">
+                <div class="w-12 h-12 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 flex items-center justify-center text-emerald-500">
+                    <i class="fa-solid fa-envelope-open-text text-xl"></i>
+                </div>
+                <div>
+                    <div class="text-sm font-bold text-slate-900 dark:text-white truncate">ppg24upi@gmail.com</div>
+                    <div class="text-xs text-slate-400 uppercase tracking-wider font-semibold">Admin Penanggung Jawab</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CONTAINER DAFTAR ANTREAN GURU -->
+        <div class="bg-white dark:bg-[#111827] border border-slate-200 dark:border-gray-800 rounded-2xl shadow-sm overflow-hidden">
+            <div class="px-6 py-4 bg-slate-50 dark:bg-gray-800/50 border-b border-slate-200 dark:border-gray-800 flex justify-between items-center">
+                <h3 class="text-sm font-bold font-mono uppercase tracking-wider text-slate-500 dark:text-gray-400">Antrean Akun Pemohon</h3>
+                <button onclick="loadPendingTeachers()" class="text-xs font-bold text-emerald-500 hover:text-emerald-400 flex items-center gap-1 transition">
+                    <i class="fa-solid fa-rotate"></i> Segarkan Data
+                </button>
+            </div>
+
+            <div id="teacher-list" class="divide-y divide-slate-200 dark:divide-gray-800">
+                <!-- Data akan di-render di sini secara dinamis menggunakan JS -->
+                <div class="p-10 text-center text-slate-400 dark:text-gray-500">
+                    <i class="fa-solid fa-circle-notch text-2xl animate-spin mb-3 block text-emerald-500"></i>
+                    Memetakan baris basis data profiles...
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-6 text-center">
+            <a href="index.html" class="inline-flex items-center gap-2 text-xs font-semibold text-slate-400 hover:text-slate-600 dark:hover:text-white transition">
+                <i class="fa-solid fa-arrow-left"></i> Kembali ke Portal Beranda Utama
+            </a>
+        </div>
+    </main>
+
+    <!-- FOOTER PANEL -->
+    <footer class="bg-slate-900 dark:bg-[#070a12] border-t border-slate-800 py-6 text-center text-xs text-slate-500 transition-colors duration-300 mt-auto">
+        &copy; 2026 SMK AMI Deltamas. Security Dashboard System Engine ver 2.6.
+    </footer>
+
+    <!-- LOGIKA CORE SUPABASE & INTERAKSI -->
+    <script>
+        const supabaseClient = window.supabaseClient || window.supabase;
+
+        // 1. CEK OTORISASI PROTEKSI SEBELUM HALAMAN DI-RENDER LENGKAP
+        async function checkAdminSession() {
+            try {
+                const { data: { session }, error } = await supabaseClient.auth.getSession();
+                
+                if (error || !session) {
+                    alert("Akses ditolak! Anda harus masuk terlebih dahulu.");
+                    window.location.href = "index.html";
+                    return;
+                }
+
+                const userEmail = session.user.email;
+                document.getElementById('adminEmailBadge').innerText = `Admin: ${userEmail}`;
+
+                // Batasi keras halaman ini hanya untuk email administrator utama
+                if (userEmail !== 'ppg24upi@gmail.com') {
+                    alert("Pelanggaran Hak Akses! Halaman ini dikunci khusus Admin Utama.");
+                    window.location.href = "index.html";
+                    return;
+                }
+
+                // Jika lolos enkripsi filter, muat data antrean guru
+                loadPendingTeachers();
+
+            } catch (err) {
+                window.location.href = "index.html";
+            }
+        }
+
+        // 2. AMBIL DATA GURU YANG BELUM DI-APPROVED (approved = false)
+        async function loadPendingTeachers() {
+            const listContainer = document.getElementById('teacher-list');
+            const countBadge = document.getElementById('countPending');
+
+            try {
+                const { data, error } = await supabaseClient
+                    .from('profiles')
+                    .select('*')
+                    .eq('approved', false);
+
+                if (error) throw error;
+
+                countBadge.innerText = data.length;
+
+                if (data.length === 0) {
+                    listContainer.innerHTML = `
+                        <div class="p-12 text-center text-slate-400 dark:text-gray-500 font-medium">
+                            <i class="fa-solid fa-circle-check text-3xl text-emerald-500 mb-2 block"></i>
+                            Tidak ada akun guru atau staf piket yang menunggu persetujuan saat ini.
+                        </div>`;
+                    return;
+                }
+
+                listContainer.innerHTML = data.map(teacher => `
+                    <div class="p-6 flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white dark:bg-[#111827] hover:bg-slate-50/50 dark:hover:bg-gray-800/20 transition">
+                        <div class="space-y-1">
+                            <div class="flex items-center gap-2">
+                                <h4 class="font-bold text-slate-900 dark:text-white text-base">${teacher.full_name || 'Tanpa Nama'}</h4>
+                                <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-blue-100 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400 font-bold border border-blue-200 dark:border-blue-500/10 uppercase">
+                                    ${teacher.role || 'Guru Piket'}
+                                </span>
+                            </div>
+                            <p class="text-sm font-mono text-slate-500 dark:text-gray-400 flex items-center gap-1.5">
+                                <i class="fa-regular fa-envelope"></i> ${teacher.email || 'N/A'}
+                            </p>
+                            ${teacher.notes ? `
+                                <p class="text-xs text-amber-600 dark:text-amber-400 bg-amber-500/5 px-2.5 py-1 rounded border border-amber-500/10 inline-block font-medium mt-1">
+                                    <i class="fa-solid fa-comment-dots"></i> Catatan Saat ini: "${teacher.notes}"
+                                </p>
+                            ` : ''}
+                        </div>
+
+                        <!-- PANEL KONTROL/AKSI -->
+                        <div class="flex flex-wrap items-center gap-2 md:self-center">
+                            <!-- Input Tambah Catatan -->
+                            <input type="text" id="note-${teacher.id}" placeholder="Beri catatan tambahan..." 
+                                class="bg-slate-50 dark:bg-[#161e31] border border-slate-300 dark:border-gray-700 text-xs rounded-lg px-3 py-2 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 focus:outline-none focus:border-emerald-500 transition w-full sm:w-44">
+                            
+                            <!-- Tombol Setujui -->
+                            <button onclick="approveTeacher('${teacher.id}')" 
+                                class="px-3.5 py-2 rounded-lg text-xs font-bold bg-emerald-600 hover:bg-emerald-500 text-white shadow-md transition duration-200 flex items-center gap-1">
+                                <i class="fa-solid fa-check"></i> Setujui
+                            </button>
+                            
+                            <!-- Tombol Tolak / Hapus -->
+                            <button onclick="deleteTeacher('${teacher.id}', '${teacher.full_name}')" 
+                                class="px-3.5 py-2 rounded-lg text-xs font-bold bg-rose-600/10 hover:bg-rose-600 text-rose-600 hover:text-white border border-rose-500/20 transition duration-200 flex items-center gap-1">
+                                <i class="fa-solid fa-trash-can"></i> Tolak
+                            </button>
+                        </div>
+                    </div>
+                `).join("");
+
+            } catch (error) {
+                console.error(error);
+                listContainer.innerHTML = `
+                    <div class="p-8 text-center text-rose-500 text-xs font-mono">
+                        Gagal memuat antrean DB: ${error.message}
+                    </div>`;
+            }
+        }
+
+        // 3. FUNGSI EKSEKUSI PERSETUJUAN (APPROVE)
+        async function approveTeacher(teacherId) {
+            const optionalNote = document.getElementById(`note-${teacherId}`).value.trim();
+            
+            try {
+                // Siapkan objek pembaruan
+                const updateData = { approved: true };
+                if (optionalNote) updateData.notes = optionalNote; // Sisipkan jika admin menulis catatan
+
+                const { error } = await supabaseClient
+                    .from('profiles')
+                    .update(updateData)
+                    .eq('id', teacherId);
+
+                if (error) throw error;
+
+                alert("Akun berhasil disetujui! Guru tersebut sekarang sudah bisa login ke dashboard utama.");
+                loadPendingTeachers(); // Segarkan tampilan antrean
+
+            } catch (error) {
+                alert("Gagal menyetujui akun: " + error.message);
+            }
+        }
+
+        // 4. FUNGSI TOLAK / HAPUS PERMOHONAN DARI DATABASE
+        async function deleteTeacher(teacherId, teacherName) {
+            if (!confirm(`Apakah Anda yakin ingin menolak & menghapus permohonan pendaftaran dari "${teacherName}"?`)) return;
+
+            try {
+                // Menghapus data pendaftaran dari tabel profiles publik
+                const { error } = await supabaseClient
+                    .from('profiles')
+                    .delete()
+                    .eq('id', teacherId);
+
+                if (error) throw error;
+
+                alert("Permohonan akun berhasil dihapus dari sistem.");
+                loadPendingTeachers();
+
+            } catch (error) {
+                alert("Gagal menghapus permohonan: " + error.message);
+            }
+        }
+
+        // 5. FUNGSI LOGOUT KELUAR SESI ADMIN
+        async function handleLogout() {
+            await supabaseClient.auth.signOut();
+            window.location.href = "index.html";
+        }
+
+        // Jalankan pelindung otentikasi saat halaman diakses browser
+        window.onload = checkAdminSession;
+    </script>
+</body>
+</html>
